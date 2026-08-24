@@ -1,0 +1,48 @@
+[
+    {
+        "id": "S23-45-9823",
+        "artist": "Lumiere Home Video",
+        "title": "THE AVENGERS VOLUME 1 (1993 UK VHS).IA",
+        "year": "1960's",
+        "genre": "Archival Drama / Shellac 78",
+        "format": "Digital MP4 Video / Archive Master",
+        "source_platform": "archive",
+        "unadulterated_source_url": "https://archive.org/download/the-avengers-volume-1-1993-uk-vhs/The%20Avengers%20Volume%201%20%281993%20UK%20VHS%29.ia.mp4",
+        "local_image_path_target": "https://archive.org/download/the-avengers-volume-1-1993-uk-vhs/__ia_thumb.jpg",
+        "premium_vault_download": "mp4/S23-45-9823.7z",
+        "pricing": {
+            "mp4_stream_preview": "0.00",
+            "hd_digital_download": "2.50",
+            "physical_dvd_post": "2.50"
+        },
+        "tags": [
+            "lumiere home video",
+            "video",
+            "archive",
+            "the avengers volume 1 (1993 uk vhs).ia"
+        ]
+    },
+    {
+        "id": "S23-45-9823",
+        "artist": "Lumiere Home Video",
+        "title": "THE AVENGERS VOLUME 1 (1993 UK VHS)",
+        "year": "1960's",
+        "genre": "Archival Drama / Shellac 78",
+        "format": "Digital MP4 Video / Archive Master",
+        "source_platform": "archive",
+        "unadulterated_source_url": "https://archive.org/download/the-avengers-volume-1-1993-uk-vhs/The%20Avengers%20Volume%201%20%281993%20UK%20VHS%29.mp4",
+        "local_image_path_target": "https://archive.org/download/the-avengers-volume-1-1993-uk-vhs/__ia_thumb.jpg",
+        "premium_vault_download": "mp4/S23-45-9823.7z",
+        "pricing": {
+            "mp4_stream_preview": "0.00",
+            "hd_digital_download": "2.50",
+            "physical_dvd_post": "2.50"
+        },
+        "tags": [
+            "lumiere home video",
+            "video",
+            "archive",
+            "the avengers volume 1 (1993 uk vhs)"
+        ]
+    }
+]

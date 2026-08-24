@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Science of Audio: Compression vs. High-Fidelity</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #111111;
+            border-bottom: 2px solid #222222;
+            padding-bottom: 10px;
+            font-size: 28px;
+        }
+        h2 {
+            color: #222222;
+            margin-top: 30px;
+            font-size: 20px;
+        }
+        p {
+            font-size: 16px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #000000;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #666666;
+            border-top: 1px solid #dddddd;
+            padding-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>The Physics of Audio Curation: Formats & Acoustics</h1>
+    
+    <p>This document explains why modern digital convenience often destroys audio quality, how historical listening spaces outperformed modern devices, and why uncompressed master files are vital for preservation.</p>
+
+    <h2>1. How MP3 Files Aggressively "Crush" Sound</h2>
+    <p>An MP3 file is a <span class="highlight">lossly compression format</span> designed in the 1990s to solve a problem that no longer exists: tiny internet bandwidth and small hard drives. To shrink a file down to 10% of its original size, the MP3 encoder throws away massive amounts of real musical data using a trick called <span class="highlight">psychoacoustic modeling</span>.</p>
+    <ul>
+        <li><span class="highlight">Frequency Truncation</span> - The encoder assumes human ears cannot hear high frequencies well, so it completely cuts off the top frequency shelf (often anything above 16 kHz or 18 kHz).</li>
+        <li><span class="highlight">Acoustic Masking</span> - If two sounds happen at the same time and one is louder, the encoder completely erases the quieter sound from the digital bitstream, assuming your brain will ignore it.</li>
+        <li><span class="highlight">Phase and Space Destruction</span> - MP3 compression squashes the delicate timing differences between the left and right audio channels. This entirely destroys the "stereo image," making the music sound flat, narrow, and thin.</li>
+    </ul>
+
+    <h2>2. Why a 1930s Family Radio Outperformed Modern Devices</h2>
+    <p>It sounds strange to say that a wireless set from nearly a century ago had better sound quality than a modern smartphone or Bluetooth speaker, but it comes down to basic physics, cabinet design, and raw acoustic movement:</p>
+    <ul>
+        <li><span class="highlight">Physical Cabinet Resonance</span> - 1930s radios were housed in large, heavy, mathematically sculpted wooden cabinets. Wood acts as a natural acoustic amplifier, providing a rich, warm, and woody resonance that plastic modern smart speakers cannot replicate.</li>
+        <li><span class="highlight">Massive Air Displacement</span> - Old radios utilized large speakers with heavy magnets. To hear bass and midrange frequencies accurately, a speaker must physically move air inside a room. Modern micro-speakers are too tiny to move air effectively, resulting in a hollow sound.</li>
+        <li><span class="highlight">Pure Analog Signal Chain</span> - Early broadcasting and valve amplification possessed zero digital quantization errors, zero compression artifacts, and zero harsh brick-wall limiting. The signal was a continuous, smooth, natural electrical wave.</li>
+    </ul>
+
+    <h2>3. Why WAV Masters Are Best for Historical Curation</h2>
+    <p>For your premium archive vaults, using uncompressed <span class="highlight">WAV (Waveform Audio File Format)</span> masters is the only way to preserve true historical integrity:</p>
+    <ul>
+        <li><span class="highlight">Mathematical Exactness</span> - A WAV file stores raw, linear PCM audio data. Every single electrical measurement captured by your studio gear or vinyl ripping chain is preserved bit-for-bit, exactly as it happened in the real world.</li>
+        <li><span class="highlight">Immunity to Generation Loss</span> - Every time you edit, filter, or re-save an MP3, it recompresses and destroys more audio data. A WAV file can be opened, processed through your Boiling Frog DSP scripts, and re-saved infinitely without losing a single byte of acoustic fidelity.</li>
+        <li><span class="highlight">Full Spectrum Preservation</span> - WAV files preserve the entire audio spectrum from 0 Hz up to 22,050 Hz (and higher). This leaves the high-frequency space fully open, allowing your 20 kHz Section 23 ultrasonic Morse watermark to live securely inside the data layer.</li>
+    </ul>
+
+    <div class="footer">
+        Digital Audio Science & Technical Documentation &copy; Radio Freedom
+    </div>
+
+</body>
+</html>

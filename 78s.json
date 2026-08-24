@@ -1,0 +1,362 @@
+[
+    {
+        "id": "VINT-WALT_01",
+        "artist": "Bruno Walter, cond.; London S.O.",
+        "title": "Walter, Bruno - Corelli (HMV DB 3639-40) 1938 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Walter Bruno LSO - Corelli HMV DB 3639_thumb.jpg",
+        "premium_vault_download": "https://archive.org/download/walter-bruno-lso-corelli-hmv-db-3639-40-1938/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-01_T_02",
+        "artist": "Frederick Thurston, clarinet; Myers Foggin, piano",
+        "title": "Thurston, Foggin - Brahms (Decca G 25722-4) 1937 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/02-Thurston, Foggin - Decca G 25722-4 Brahms 1937__ia_thumb.jpg",
+        "premium_vault_download": "https://archive.org/download/01-thurston-foggin-decca-g-25722-4-brahms-1937/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-ART__03",
+        "artist": "Art Tatum, piano; Tiny Grimes, guitar; Slam Stewart, bass",
+        "title": "Tatum, Art - Melodisc, Asch, Brunswick (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Tatum Art - Asch 452-I A.jpg",
+        "premium_vault_download": "https://archive.org/download/art-tatum-trio-asch-452-1-boogie/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-ARTH_04",
+        "artist": "Arthur de Greef, piano; Royal Albert Hall Orch., Landon Ronald",
+        "title": "De Greef, Ronald - Franck (HMV D607-8) 1922 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Greef A de, Ranold L - Franck HMV D 697 1.jpg",
+        "premium_vault_download": "https://archive.org/download/arthur-de-greef-raho-landon-ronald-franck-var-symphs-hmv-d-607-8-1922/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-1_FR_05",
+        "artist": "Fritz Münch, cond.; Kirchenchor Wilhelmer Kirche Strassburg",
+        "title": "Münch, Fritz - Mozart Requiem (Odeon O-7708) 1928 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Mozart Requiem.jpg",
+        "premium_vault_download": "https://archive.org/download/1-fritz-munch-chor-wilhelmer-kirche-strassburg-mozart-requiem-dies-irae/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-1_BL_06",
+        "artist": "Orchestra c.b. L. Blémant",
+        "title": "Blémant L - Omnia X 27512 (1929) (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Blémant L dir - Omnia.jpg",
+        "premium_vault_download": "https://archive.org/download/1-blemant-l-dir-omnia-x-27512-n-8895-1-planquette_202403/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-01_A_13",
+        "artist": "Lina Dauby, contralto; Henriette Guermant, soprano; Frédéric Anspach, tenor; Safford Cape, cond.",
+        "title": "AS 39 Rondeaux du 15e siècle (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/AS 39 Rondeaux 15e siècle.jpg",
+        "premium_vault_download": "https://archive.org/download/01-arnold-de-lantins-puisque-je-voy/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-04_F_14",
+        "artist": "Felix Weingartner, London Symphony Orchestra",
+        "title": "Weingartner, Felix - Beethoven Symph. 8 (Col. L 1538-41) 1923 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Weingartner Felix - LvB s8 1923 album.jpg",
+        "premium_vault_download": "https://archive.org/download/04-felix-weingartner-lso-col-l-1538-41-beethoven-symph-8-4-1923/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-1_LE_16",
+        "artist": "Leopold Godowsky, piano",
+        "title": "Godowsky, Leopold - Chopin Piano Son. 2 Op. 35 (Col. LX 124-6) 1930 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Godowsky Leopold - Col LX 126 Chopin 1930 hoes.jpg",
+        "premium_vault_download": "https://archive.org/download/1-leopold-godowsky-col-lx-124-chopin-piano-son-2-op-35-mov-1-1930/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-01_O_19",
+        "artist": "Fernand Oubradous, bassoon; Eugène Bigot, cond.",
+        "title": "Oubradous, Bigot - Mozart KV 191 (DG L 1026-7) 1936 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Oubradous, Bigot - Mozart DG L-1026.jpg",
+        "premium_vault_download": "https://archive.org/download/01-oubradous-bigot-mozart-kv-191-dg-l-1026-7-1-1936_202110/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-02_T_20",
+        "artist": "Trio de la Cour de Belgique",
+        "title": "Trio De La Cour de Belgique - Saint-Saëns (Col. LFX 10-13) 1929 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Trio de la Cour de Belgique - 1 St Saëns album.jpg",
+        "premium_vault_download": "https://archive.org/download/02-trio-de-la-cour-de-belgique-saint-saens-trio-op.-18-mov-2/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-1_RO_25",
+        "artist": "Rosa Ponselle, soprano; Carmela Ponselle, soprano; Riccardo Stracciari, baritone",
+        "title": "Ponselle Rosa - Columbia Tricolor 1918-1921 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Ponselle Rosa - Good-bye Col 49560.jpg",
+        "premium_vault_download": "https://archive.org/download/1-rosa-ponselle-good-bye-col-49560-1918_202203/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-4_GU_31",
+        "artist": "Guarneri String Quartet",
+        "title": "Guarneri String Quartet - Polydor (1929) (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Guarneri SQ - Pol 95320 Mozart.jpg",
+        "premium_vault_download": "https://archive.org/download/4-guarneri-sq-borodin-sq-in-d-mov-3-nocturne-pol-95322/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-4_FE_32",
+        "artist": "Felix Weingartner, cond.; Miriam Licette, sop.; Muriel Brunskill, alto; Hubert Eisdell, ten.; Harold Williams, bar.",
+        "title": "Weingartner, Felix, LSO - Beethoven 9 (Col. L 1775-82) 1926 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Weingartner Felix - Beeth 9 Col L 1775.jpg",
+        "premium_vault_download": "https://archive.org/download/4-felix-weingartner-lso-beethoven-9-mov-4/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-6_HA_35",
+        "artist": "Hamilton Harty, Hallé Orch.",
+        "title": "Harty, Hamilton - R. Strauss Col. L 1552, 1655-56 1923 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Harty Hamilton - Col L 1555 AX 178 RStrauss 1923.jpg",
+        "premium_vault_download": "https://archive.org/download/6-hamilton-harty-r-strauss-bourgeois-gentilhomme-side-5-1923/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-PIQU_39",
+        "artist": "Conchita Piquer",
+        "title": "Piquer, Conchita - Miradla / La gitanilla (Col. RS 776) 1930 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Piquer Conchita - Col RS 776 hoes 1930.jpg",
+        "premium_vault_download": "https://archive.org/download/piquer-conchita-col-rs-776-hoes-1930/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-HIND_40",
+        "artist": "Aenny Hindermann, soprano (+ orchestra)",
+        "title": "Hindermann Aenny Odeon 64493 Eckert, Alabieff 1907 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Hindermann Aenny - Odeon 64493 Die Nachtigall 1907.jpg",
+        "premium_vault_download": "https://archive.org/download/hindermann-aenny-odeon-64493-die-nachtigall-1907/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-2_SW_42",
+        "artist": "Sam Swaap, violin; Charles van Isterdael, cello (+ piano)",
+        "title": "Swaap, van Isterdael - HMV B 4711-4712 (1927) (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Swaap, v Isterdael - HMV B 4712 Tosti hoes.jpg",
+        "premium_vault_download": "https://archive.org/download/2-swaap-v-isterdael-hmv-b-4711-braga-1927_202310/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-VICT_45",
+        "artist": "Haida Katsuhiko / Takamine Hideko",
+        "title": "Victor V-40256 Haida Katsuhiko / Takamine Hideko (1949) (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Japan V-40256 hoes.jpg",
+        "premium_vault_download": "https://archive.org/download/victor-v-40256-p-1452-haida-katsuhiko-1949/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    },
+    {
+        "id": "VINT-SEXT_47",
+        "artist": "Sextett Wiener Hofoper",
+        "title": "Sextett Wiener Hofoper - Lucia di Lammermoor (G&T GC-44432) 1904 (ARCHIVE)",
+        "year": "1900",
+        "genre": "Archival Vintage / Shellac",
+        "format": "Studio Master Archive",
+        "source_platform": "archive.org",
+        "unadulterated_source_url": "",
+        "local_image_path_target": "./assets/Sextett Hofoper Wien - Lammermoor G&T GC-44432 1904.jpg",
+        "premium_vault_download": "https://archive.org/download/sextett-wiener-hofoper-lucia-sextet-g-t-gc-44432-1904/",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "7.50"
+        },
+        "tags": []
+    }
+]

@@ -1,0 +1,94 @@
+[
+    {
+        "id": "S23-45-4010",
+        "artist": "Coleman Hawkins",
+        "title": "IA",
+        "year": "1961",
+        "genre": "Archival Trailer / Shellac 78",
+        "format": "Digital MP4 Video / Archive Master",
+        "source_platform": "archive",
+        "unadulterated_source_url": "https://archive.org/download/turner_video_132858/132858.ia.mp4",
+        "local_image_path_target": "https://archive.org/download/turner_video_132858/__ia_thumb.jpg",
+        "premium_vault_download": "mp4/S23-45-4010.7z",
+        "pricing": {
+            "mp4_stream_preview": "0.00",
+            "hd_digital_download": "2.50",
+            "physical_dvd_post": "2.50"
+        },
+        "tags": [
+            "coleman hawkins",
+            "video",
+            "archive",
+            "ia"
+        ]
+    },
+    {
+        "id": "S23-45-4010",
+        "artist": "avengers trailer",
+        "title": "",
+        "year": "1961",
+        "genre": "Archival Trailer",
+        "format": "Digital MP4 Video / Archive Master",
+        "source_platform": "archive",
+        "unadulterated_source_url": "https://archive.org/download/turner_video_132858/132858.mp4",
+        "local_image_path_target": "https://archive.org/download/turner_video_132858/__ia_thumb.jpg",
+        "premium_vault_download": "mp4/S23-45-4010.7z",
+        "pricing": {
+            "mp4_stream_preview": "0.00",
+            "hd_digital_download": "2.50",
+            "physical_dvd_post": "2.50"
+        },
+        "tags": [
+            "coleman hawkins",
+            "video",
+            "archive",
+            ""
+        ]
+    },
+    {
+        "id": "S23-GEN-0001",
+        "artist": "the-avengers-volume-1",
+        "title": "THE AVENGERS VOLUME 1 (1993 UK VHS).IA",
+        "year": "1960's",
+        "genre": "Archival",
+        "format": "Digital MP4 Video / Archive Master",
+        "source_platform": "archive",
+        "unadulterated_source_url": "https://archive.org/download/the-avengers-volume-1-1993-uk-vhs/The%20Avengers%20Volume%201%20%281993%20UK%20VHS%29.ia.mp4",
+        "local_image_path_target": "https://archive.org/download/the-avengers-volume-1-1993-uk-vhs/__ia_thumb.jpg",
+        "premium_vault_download": "mp4/S23-GEN-0001.7z",
+        "pricing": {
+            "mp4_stream_preview": "0.00",
+            "hd_digital_download": "2.50",
+            "physical_dvd_post": "2.50"
+        },
+        "tags": [
+            "the-avengers-volume-1",
+            "video",
+            "archive",
+            "the avengers volume 1 (1993 uk vhs).ia"
+        ]
+    },
+    {
+        "id": "S23-GEN-0001",
+        "artist": "the-avengers-volume-1",
+        "title": "THE AVENGERS VOLUME 1 (1993 UK VHS)",
+        "year": "1960's",
+        "genre": "Archival",
+        "format": "Digital MP4 Video / Archive Master",
+        "source_platform": "archive",
+        "unadulterated_source_url": "https://archive.org/download/the-avengers-volume-1-1993-uk-vhs/The%20Avengers%20Volume%201%20%281993%20UK%20VHS%29.mp4",
+        "local_image_path_target": "https://archive.org/download/the-avengers-volume-1-1993-uk-vhs/__ia_thumb.jpg",
+        "premium_vault_download": "mp4/S23-GEN-0001.7z",
+        "pricing": {
+            "mp4_stream_preview": "0.00",
+            "hd_digital_download": "2.50",
+            "physical_dvd_post": "2.50"
+        },
+        "tags": [
+            "the-avengers-volume-1",
+            "video",
+            "archive",
+            "the avengers volume 1 (1993 uk vhs)"
+        ]
+    }
+]

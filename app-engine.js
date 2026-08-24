@@ -1,0 +1,334 @@
+const SERVER_URL = "http://localhost:5002/api";
+        let activeReleaseData = null;
+        let debounceTimer;
+
+        function handleSearchInput(event) {
+            if (event.key === 'Enter') {
+                clearTimeout(debounceTimer);
+                runLiveSearch();
+                return;
+            }
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                runLiveSearch();
+            }, 800);
+        }
+
+        async function runLiveSearch() {
+            const query = document.getElementById("queryInput").value.trim();
+            const type = document.getElementById("searchType").value;
+            const left = document.getElementById("leftPanel");
+            
+            if(!query) return;
+            left.innerHTML = `<p style="text-align:center; color:#888; margin-top:200px;">📡 Fetching live Discogs channels...</p>`;
+
+            try {
+                const response = await fetch(`${SERVER_URL}/live-search?q=${encodeURIComponent(query)}&type=${type}`);
+                const hits = await response.json();
+                
+                left.innerHTML = "";
+                if (hits.error && hits.error.includes("429")) {
+                    left.innerHTML = `<p style="color:#ff9800; text-align:center; padding:20px; margin-top:150px;">⚠️ <strong>Rate Limit Active</strong><br>Requests are cycling too fast. Wait 30 seconds.</p>`;
+                    return;
+                }
+
+                if(hits.length === 0 || hits.error) {
+                    left.innerHTML = `<p style="color:#666; text-align:center; margin-top:200px;">No live matches found or token missing.</p>`;
+                    return;
+                }
+
+                hits.forEach(hit => {
+                    const div = document.createElement("div");
+                    div.className = "result-item";
+                    div.onclick = () => fetchDeepAttributes(hit.id, hit.type);
+                    div.innerHTML = `
+                        <img src="${hit.thumb || 'https://placehold.co'}" alt="Thumb">
+                        <div>
+                            <h4>${hit.title}</h4>
+                            <small style="color:#666;">Database ID: ${hit.id}</small>
+                        </div>
+                    `;
+                    left.appendChild(div);
+                });
+            } catch (err) {
+                left.innerHTML = `<p style="color:#d32f2f; text-align:center; margin-top:200px;">❌ Server Error. Ensure live_discogs_server.py is running.</p>`;
+            }
+        }
+
+        async function fetchDeepAttributes(id, type) {
+            const right = document.getElementById("rightPanel");
+            right.innerHTML = `<p style="text-align:center; color:#888; margin-top:200px;">⏳ Reading profile structure nodes...</p>`;
+
+            if(type === 'artist') {
+                right.innerHTML = `<p style="text-align:center; color:#aaa; margin-top:200px;">💡 Select 'Releases' search above to load deep tracklists and pricing reports here.</p>`;
+                return;
+            }
+
+            try {
+                const response = await fetch(`${SERVER_URL}/release-details?id=${id}`);
+                activeReleaseData = await response.json();
+                renderReleaseInspector();
+            } catch (err) {
+                right.innerHTML = `<p style="color:#d32f2f; text-align:center;">❌ Error pulling details from API.</p>`;
+            }
+        }
+        function renderReleaseInspector() {
+            const right = document.getElementById("rightPanel");
+            const data = activeReleaseData;
+
+                        let tracksHTML = data.tracklist.map((t, idx) => {
+                const escapedArtist = data.artist.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                const escapedTitle = t.title.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                return `
+                    <div style="border-bottom: 1px solid #252525; padding: 8px 0;">
+                        <div class="track-row" style="border:none; padding:0;">
+                            <span><strong>${t.position}</strong>. ${t.title}</span>
+                            <div>
+                                <span style="color:#888; font-size:12px; margin-right:5px;">${t.duration || '--:--'}</span>
+                                <button class="dl-track-btn" style="background:#5c130d; color:#ffccbc; border-color:#881b12;" onclick="linkYouTubeTrack('${escapedArtist}', '${escapedTitle}', this, 'yt-box-${idx}')">🎬 Find Video</button>
+                                <button type="button" class="dl-track-btn" onclick="event.preventDefault(); event.stopPropagation(); downloadSingleTrack('${escapedArtist}', '${escapedTitle}', this)">📥 Get MP3</button>
+                                
+                                <!-- UPGRADE: Immediate Local Playback Trigger Button -->
+                                <button type="button" class="dl-track-btn" style="background:#1b5e20; color:#c8e6c9; border-color:#2e7d32;" onclick="event.preventDefault(); event.stopPropagation(); previewLocalAudio('${escapedArtist}', '${escapedTitle}', this, 'player-${idx}')">▶ Play</button>
+                            </div>
+                        </div>
+                        
+                        <!-- UPGRADE: Stealth Hidden HTML5 Audio Element Loop Container -->
+                        <div id="player-${idx}" style="margin-top:8px; display:none;">
+                            <audio controls style="width:100%; height:32px; filter:invert(0.9) hue-rotate(180deg);"></audio>
+                        </div>
+                        
+                        <div id="yt-box-${idx}" style="margin-top:2px;"></div>
+                    </div>
+                    <!-- UPGRADE: 🎚️ Render Master WAV DSP Pipeline Trigger Button -->
+                    <button type="button" class="dl-track-btn" style="background:#37474f; color:#eceff1; border-color:#455a64;" onclick="event.preventDefault(); event.stopPropagation(); renderMasterWav('${escapedArtist}', '${escapedTitle}', this)">🎚️ Render Master WAV</button>
+                `;
+            }).join("");
+
+
+            let creditsHTML = data.credits.map(c => `
+                <div class="credit-row"><strong>${c.role}:</strong> ${c.name}</div>
+            `).join("") || "<p style='color:#555;'>No musician lines indexed.</p>";
+
+            let matrixHTML = "";
+            if (data.identifiers && Array.isArray(data.identifiers)) {
+                matrixHTML = data.identifiers.map(ide => `
+                    <div style="margin-bottom:4px;">• <strong>${ide.type}:</strong> ${ide.value}</div>
+                `).join("");
+            }
+            if (!matrixHTML) {
+                matrixHTML = "No matrix etching descriptors catalogued for this copy.";
+            }
+
+            right.innerHTML = `
+                <div style="display:flex; gap:20px; border-bottom:1px solid #333; padding-bottom:15px; align-items:center;">
+                    <img src="${data.thumb || 'https://placehold.co'}" style="width:80px; height:80px; object-fit:cover; border-radius:6px; background-color:#222;">
+                    <div>
+                        <h2 style="margin:0; color:#fff;">${data.title}</h2>
+                        <p style="margin:5px 0 0 0; color:#aaa;">${data.artist} (${data.released_detailed || data.year} - ${data.country})</p>
+                    </div>
+                </div>
+
+                    <div style="display:flex; justify-content:space-between; margin-top:15px; align-items:center;">
+                    <div>
+                        <span style="color:#666; font-size:12px;">LOWEST ACTIVE MARKETPLACE PRICE</span><br>
+                        <!-- UPGRADE: Wrapped inside a styled anchor link pointing directly to the Discogs Marketplace page -->
+                        <a href="https://discogs.com/sell/release/${data.id}" target="_blank" style="text-decoration:none; cursor:pointer;" title="Open Discogs Marketplace">
+                            <span class="price-badge">${data.lowest_price !== 'N/A' ? '$' + data.lowest_price : 'No Active Listings'}</span>
+                        </a>
+                        <small style="color:#888; margin-left:5px;">(${data.num_for_sale} for sale)</small>
+                    </div>
+                    <button class="btn-export" onclick="triggerLocalTextExport()">Export Text Report</button>
+                </div>
+
+
+                
+
+                <span class="meta-label">🛠️ Wax Matrix Codes & Pressing Identifiers</span>
+                <div style="background: #161616; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 12px; color: #8bc34a; max-height: 100px; overflow-y: auto; border: 1px solid #222; margin-top: 5px;">
+                    ${matrixHTML}
+                </div>
+
+                <span class="meta-label">FORMATS & MASTER CHANNELS</span>
+                <p style="margin:5px 0; font-size:14px; color:#ccc;">${data.formats}</p>
+
+                <span class="meta-label">GENRES & STYLES</span>
+                <p style="margin:5px 0; font-size:14px; color:#ccc;">${data.genre}</p>
+
+                <span class="meta-label">TRACKLIST MATRIX</span>
+                <div style="margin-top:5px; max-height:180px; overflow-y:auto; background:#161616; padding:10px; border-radius:6px;">${tracksHTML}</div>
+
+                <span class="meta-label">PERSONNEL EXTRA CREDITS</span>
+                <div style="margin-top:5px; max-height:100px; overflow-y:auto;">${creditsHTML}</div>
+            `;
+        }
+
+        async function linkYouTubeTrack(artist, title, button, targetBoxId) {
+            const box = document.getElementById(targetBoxId);
+            const originalText = button.innerText;
+            button.innerText = "⏳ Connecting...";
+            button.style.pointerEvents = "none";
+
+            try {
+                const response = await fetch(`${SERVER_URL}/connect-youtube?artist=${encodeURIComponent(artist)}&title=${encodeURIComponent(title)}`);
+                const res = await response.json();
+
+                if (res.status === "success" && res.video_url) {
+                    button.innerText = "🎬 Linked";
+                    button.style.backgroundColor = "#881b12";
+                    box.innerHTML = `<a href="${res.video_url}" target="_blank" class="yt-anchor">📺 Open Video: ${res.video_url}</a>`;
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
+                button.innerText = "❌ Not Found";
+                button.style.backgroundColor = "#333";
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.backgroundColor = "#5c130d";
+                    button.style.pointerEvents = "auto";
+                }, 2000);
+            }
+        }
+
+        async function downloadSingleTrack(artist, title, buttonElement) {
+            const originalText = buttonElement.innerText;
+            buttonElement.innerText = "⏳ Looking up...";
+            buttonElement.style.pointerEvents = "none";
+            buttonElement.style.backgroundColor = "#333";
+
+            try {
+                const downloadUrl = `${SERVER_URL}/harvest-track?artist=${encodeURIComponent(artist)}&title=${encodeURIComponent(title)}`;
+                const checkResponse = await fetch(downloadUrl, { method: 'HEAD' });
+                
+                if (!checkResponse.ok) throw new Error();
+
+                const anchor = document.createElement('a');
+                anchor.href = downloadUrl;
+                anchor.style.display = 'none';
+                document.body.appendChild(anchor);
+                anchor.click();
+                document.body.removeChild(anchor);
+
+                buttonElement.innerText = "✅ Delivered!";
+                buttonElement.style.backgroundColor = "#2e7d32";
+                buttonElement.style.borderColor = "#2e7d32";
+                buttonElement.style.color = "#fff";
+
+                setTimeout(() => {
+                    buttonElement.innerText = originalText;
+                    buttonElement.style.backgroundColor = "#2b2b2b";
+                    buttonElement.style.pointerEvents = "auto";
+                }, 3000);
+
+            } catch (err) {
+                buttonElement.innerText = "❌ Missing Local";
+                buttonElement.style.backgroundColor = "#d32f2f";
+                buttonElement.style.borderColor = "#d32f2f";
+                buttonElement.style.color = "#fff";
+                setTimeout(() => {
+                    buttonElement.innerText = originalText;
+                    buttonElement.style.backgroundColor = "#2b2b2b";
+                    buttonElement.style.pointerEvents = "auto";
+                }, 3000);
+            }
+        }
+		        async function previewLocalAudio(artist, title, buttonElement, playerBoxId) {
+            const container = document.getElementById(playerBoxId);
+            const audioEl = container.querySelector('audio');
+            
+            // Toggle Logic: If it is already actively playing, pause it instantly
+            if (!audioEl.paused) {
+                audioEl.pause();
+                buttonElement.innerText = "▶ Play";
+                buttonElement.style.backgroundColor = "#1b5e20";
+                buttonElement.style.borderColor = "#2e7d32";
+                buttonElement.style.color = "#c8e6c9";
+                return;
+            }
+
+            const originalText = buttonElement.innerText;
+            buttonElement.innerText = "⏳ Loading...";
+            
+            // Target the direct local file endpoint route on your Flask server
+            const streamUrl = `${SERVER_URL}/harvest-track?artist=${encodeURIComponent(artist)}&title=${encodeURIComponent(title)}`;
+
+            try {
+                // Perform a quick verification check to see if the file exists on disk
+                const check = await fetch(streamUrl, { method: 'HEAD' });
+                
+                if (!check.ok) {
+                    buttonElement.innerText = "❌ Download First";
+                    buttonElement.style.backgroundColor = "#d32f2f";
+                    buttonElement.style.borderColor = "#d32f2f";
+                    buttonElement.style.color = "#fff";
+                    setTimeout(() => {
+                        buttonElement.innerText = "▶ Play";
+                        buttonElement.style.backgroundColor = "#1b5e20";
+                        buttonElement.style.borderColor = "#2e7d32";
+                        buttonElement.style.color = "#c8e6c9";
+                    }, 2500);
+                    return;
+                }
+
+                // Inject the file data path into the HTML5 audio engine and reveal the control strip
+                audioEl.src = streamUrl;
+                container.style.display = "block";
+                
+                // Fire native browser playback loop
+                await audioEl.play();
+                
+                buttonElement.innerText = "⏸ Pause";
+                buttonElement.style.backgroundColor = "#ef6c00"; // Switch button color to amber while active
+                buttonElement.style.borderColor = "#ef6c00";
+                buttonElement.style.color = "#fff";
+
+                // Monitor when the audio ends naturally to reset button state labels
+                audioEl.onended = () => {
+                    buttonElement.innerText = "▶ Play";
+                    buttonElement.style.backgroundColor = "#1b5e20";
+                    buttonElement.style.borderColor = "#2e7d32";
+                    buttonElement.style.color = "#c8e6c9";
+                    container.style.display = "none";
+                };
+
+            } catch (err) {
+                buttonElement.innerText = "❌ Audio Error";
+                buttonElement.style.backgroundColor = "#d32f2f";
+                buttonElement.style.borderColor = "#d32f2f";
+                buttonElement.style.color = "#fff";
+                setTimeout(() => {
+                    buttonElement.innerText = originalText;
+                    buttonElement.style.backgroundColor = "#1b5e20";
+                    buttonElement.style.borderColor = "#2e7d32";
+                    buttonElement.style.color = "#c8e6c9";
+                }, 2000);
+            }
+        }
+        function renderMasterWav(artist, title, buttonElement) {
+    // 1. URL-encode the parameters so they pass seamlessly across the file path string
+    const queryParams = `?artist=${encodeURIComponent(artist)}&title=${encodeURIComponent(title)}`;
+    
+    // 2. Instruct the browser to load your convert.html page in a clean window tab, trailing your data parameters
+    window.open(`convert.html${queryParams}`, '_blank');
+}
+
+
+
+
+        async function triggerLocalTextExport() {
+            if(!activeReleaseData) return;
+            try {
+                const response = await fetch(`${SERVER_URL}/export-text`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(activeReleaseData)
+                });
+                const res = await response.json();
+                if(res.status === 'success') {
+                    alert(`✅ Document Written Successfully!\nSaved as: ${res.filename}`);
+                }
+            } catch(err) {
+                alert("❌ Export process layout exception occurred.");
+            }
+        }
