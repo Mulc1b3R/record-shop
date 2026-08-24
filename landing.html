@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Section23 Jukebox Archive // Welcome Portal</title>
+    <style>
+        :root {
+            --matrix-green: #00ff00;
+            --dim-green: #00aa00;
+            --dark-green: #001100;
+            --deep-black: #0a0a0a;
+            --caution-orange: #ff9900;
+            --cyan-accent: #00ffff;
+        }
+
+        /* Standard baseline font matching your console terminal themes */
+        .portal-container {
+            border: 1px solid var(--dim-green);
+            background: var(--deep-black);
+            padding: 25px;
+            margin-bottom: 25px;
+            font-family: monospace;
+            line-height: 1.6;
+            color: var(--matrix-green);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .portal-header {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--dim-green);
+            padding-bottom: 6px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .portal-title {
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .portal-description {
+            margin: 0 0 25px 0;
+            font-size: 0.85rem;
+            color: var(--dim-green);
+        }
+
+        /* Three-column interaction map grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .guide-card {
+            border: 1px dotted var(--dim-green);
+            padding: 12px;
+            background: #020202;
+        }
+
+        .card-tag {
+            font-size: 0.65rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .card-text {
+            margin: 0;
+            font-size: 0.75rem;
+            color: var(--dim-green);
+        }
+
+        .portal-footer-notice {
+            font-size: 0.75rem;
+            border: 1px dashed var(--dim-green);
+            padding: 10px;
+            background: rgba(0, 255, 0, 0.02);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🎯 CENTRAL RECORD SHOP WELCOME PORTAL -->
+    <div class="portal-container">
+        
+        <!-- Header Signal Status -->
+        <div class="portal-header">
+            <span>[ MAIN INDEX PORTAL // SYSTEM OVERVIEW ]</span>
+            <span style="color: var(--caution-orange);">GATEWAY STATUS: ONLINE</span>
+        </div>
+
+        <!-- Main Narrative Intro -->
+        <h2 class="portal-title">WELCOME TO THE SECTION23 RECORD SHOP</h2>
+        <p class="portal-description">
+            You have successfully synchronized with a decentralized digital signal preservation repository. This terminal acts as a direct client interface to our physical historical vaults, containing high-fidelity, uncompressed digital transfers of historical 78 RPM shellacs, rare mid-century vinyl pressings, and elite analog master audio layers.
+        </p>
+
+        <!-- Dynamic Step-by-Step Operator Mapping Matrix -->
+        <div class="guide-grid">
+            
+            <!-- PHASE 01 MODULE -->
+            <div class="guide-card">
+                <div class="card-tag" style="color: var(--caution-orange);">// PHASE 01: EXPLORE ARCHIVES</div>
+                <div class="card-title">Select an Era or Genre</div>
+                <p class="card-text">
+                    Use the primary sidebar navigation menu matrix to unlock specific timelines. Selecting an era re-allocates the central index container layout to stream historical asset data arrays instantly from our static JSON backend archive files.
+                </p>
+            </div>
+
+            <!-- PHASE 02 MODULE -->
+            <div class="guide-card">
+                <div class="card-tag" style="color: var(--cyan-accent);">// PHASE 02: THE JUKEBOX MONITOR</div>
+                <div class="card-title">Stream & Audit Tracks</div>
+                <p class="card-text">
+                    Engage any track's needle play link to activate our single-stream playback monitor feed. Watch the visual telemetry radar lines pulse on your sidebar oscilloscope display as the audio array buffers directly inside your local RAM.
+                </p>
+            </div>
+
+            <!-- PHASE 03 MODULE -->
+            <div class="guide-card">
+                <div class="guide-card-content">
+                    <div class="card-tag" style="color: var(--matrix-green);">// PHASE 03: LABORATORY CORE</div>
+                    <div class="card-title">Remaster & Print Masters</div>
+                    <p class="card-text">
+                        Download premium archive assets and drop them straight into our Boiling Frog Audio Lab framework. Tweak environmental matrix variables, instigate progressive saturation curves, and print uncompressed 24-bit WAV masters embedded with authentic artwork.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Radio Network Telemetry Notice Footer -->
+        <div class="portal-footer-notice">
+            <span style="font-weight: bold; color: var(--caution-orange);">📻 SIGNAL BROADCAST:</span> Radio Freedom is actively cycling through our massive <span style="font-weight: bold; color: #ffffff;">171,000-link database</span> at sub-millisecond speeds. Engage the radio gateway link on your sidebar panel loop to tap directly into the continuous audio timeline transmission matrix.
+        </div>
+
+    </div>
+
+</body>
+</html>

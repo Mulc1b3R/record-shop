@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- =====================================================================
+     📻 RETRO WURLITZER JUKEBOX CSS ENGINE LAYER
+     ===================================================================== -->
+<style>
+    :root {
+        --juke-frame: #1e110b;       /* Dark polished mahogany wood grain */
+        --juke-neon: #ff0055;        /* Radiant retro ruby red tube glow */
+        --juke-neon-alt: #00f0ff;    /* Electric turquoise cyan strip lights */
+        --juke-glass: #2a2a35;       /* Internal mechanical viewport tint */
+        --strip-bg: #fffbf2;         /* Aged, faded 1950s typewriter card stock */
+    }
+
+    /* 🏛️ Outer Cabinet Assembly */
+    .wurlitzer-cabinet {
+        max-width: 950px;
+        margin: 30px auto;
+        background: linear-gradient(145deg, #2d1b10, var(--juke-frame));
+        border: 4px solid #3d2314;
+        border-radius: 60px 60px 12px 12px; /* Arch-top silhouette geometry */
+        padding: 30px;
+        box-shadow: 
+            0 0 40px rgba(0, 0, 0, 0.8),
+            inset 0 0 25px rgba(0, 0, 0, 0.5),
+            0 0 50px var(--juke-neon); /* Global ambient wall casting glow */
+        font-family: 'Courier New', Courier, monospace; /* Forced typewriter font */
+    }
+
+    .wurlitzer-cabinet h1 {
+        text-align: center;
+        color: #ffffff;
+        font-family: 'Impact', 'Arial Black', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-top: 10px;
+        margin-bottom: 25px;
+        text-shadow: 
+            0 0 10px var(--juke-neon-alt),
+            0 0 20px var(--juke-neon-alt);
+    }
+
+    /* 🎛️ Upper Dial Control Deck */
+    .selector-box {
+        background: #0a0a0d;
+        padding: 20px;
+        border-radius: 15px;
+        border: 2px solid #333;
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
+    }
+    .selector-box label {
+        color: var(--juke-neon-alt);
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+    .selector-box select {
+        background: #15151c;
+        color: #fff;
+        font-weight: bold;
+        border: 2px solid var(--juke-neon-alt);
+        padding: 8px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        outline: none;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    }
+
+    /* 💿 MECHANICAL CENTER STAGE: The Vinyl Turntable Display */
+    .mechanical-viewport {
+        background: radial-gradient(circle, #1a1a24 0%, var(--juke-glass) 100%);
+        border: 3px solid #111;
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: inset 0 0 30px rgba(0,0,0,1);
+        position: relative;
+        overflow: hidden;
+    }
+    /* Vertical light bars mimicking chrome grilles */
+    .mechanical-viewport::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 10%; right: 10%; bottom: 0;
+        background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 44px);
+        pointer-events: none;
+    }
+
+        /* 🏛️ ADJUSTED CABINET ASSEMBLY FOR A LARGER RECORD */
+    .vinyl-record-disc {
+        width: 280px;                 /* 1. Increased from 140px */
+        height: 280px;                /* 2. Increased from 140px */
+        background: radial-gradient(circle, #222 25%, #050505 26%, #1a1a1a 40%, #000000 50%, #111 70%);
+        border-radius: 50%;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #333;
+        transition: transform 0.5s ease;
+    }
+    
+    /* Sound Grooves Texture Layer */
+    .vinyl-record-disc::after {
+        content: '';
+        position: absolute;
+        width: 210px;                /* 3. Increased from 120px to scale grooves to the edge */
+        height: 210px;               /* 4. Increased from 120px to scale grooves to the edge */
+        border-radius: 50%;
+        border: 1px dashed rgba(255,255,255,0.08);
+        pointer-events: none;
+    }
+
+
+    /* The Center Record Label holding title details */
+       /* The Center Record Label holding title details */
+    .vinyl-center-label {
+        width: 180px;                  /* Increased from 50px */
+        height: 180px;                 /* Increased from 50px */
+        background: #ff9f1c; 
+        border-radius: 50%;
+        border: 2px solid #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+        z-index: 2;
+    }
+
+    .center-spindle-hole {
+        width: 12px;
+        height: 12px;
+        background: var(--juke-glass);
+        border-radius: 50%;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
+    }
+
+    /* 🔄 45 RPM KEYFRAME KINETICS ELEMENT */
+    .record-spinning {
+        animation: spinAt45RPM 1.33s linear infinite;
+    }
+    @keyframes spinAt45RPM {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* 📊 TITLE STRIP TRAY: Double Column Vending Layout */
+    .track-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+        gap: 15px;
+        padding: 10px;
+    }
+
+    /* 🎫 Individual Card Stock Strip Title Grid */
+    .track-row {
+        background: var(--strip-bg);
+        border: 2px solid #d4cbb5;
+        padding: 12px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        box-shadow: 
+            2px 2px 5px rgba(0,0,0,0.15),
+            inset 0 0 10px rgba(255,255,255,0.6);
+        transition: transform 0.1s, box-shadow 0.1s;
+    }
+    /* Red center divider lines from physical card dividers */
+    .track-row::before {
+        content: '';
+        position: absolute;
+        top: 0; bottom: 0; left: 45px;
+        width: 2px;
+        background-color: rgba(230, 50, 50, 0.25);
+    }
+
+    .track-row:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        cursor: pointer;
+    }
+    /* Active selection card indentation mapping */
+    .track-row.strip-selected {
+        background: #fffdf9;
+        border-color: var(--juke-neon);
+        box-shadow: 0 0 12px rgba(255,0,85,0.3);
+    }
+
+    .track-info {
+        display: flex;
+        flex-direction: column;
+        max-width: 75%;
+        z-index: 2;
+    }
+    /* Mechanical Red Index Numbering */
+    .track-title {
+        color: #111111;
+        font-weight: bold;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .track-title span.index-tag {
+        color: #cc1111; /* Bold mechanical selector font color */
+        margin-right: 15px;
+        font-size: 15px;
+    }
+    .track-artist {
+        color: #444444;
+        font-size: 13px;
+        margin-top: 3px;
+        font-style: italic;
+        padding-left: 42px; /* Standardizes text padding past the red border rule line */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Vintage Plastic Push-Buttons */
+    .play-btn {
+        background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%);
+        color: #222;
+        border: 2px solid #bbb;
+        font-family: inherit;
+        font-weight: bold;
+        font-size: 12px;
+        padding: 6px 12px;
+        cursor: pointer;
+        box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
+        text-transform: uppercase;
+        border-radius: 4px;
+        z-index: 2;
+        transition: background 0.1s, transform 0.05s;
+    }
+    .track-row:hover .play-btn {
+        background: var(--juke-neon-alt);
+        color: #000;
+        border-color: #00c0cc;
+    }
+    .track-row.strip-selected .play-btn {
+        background: var(--juke-neon);
+        color: #fff;
+        border-color: #cc0044;
+        transform: translateY(2px);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    /* 🎵 FIXED AUDIO CONTAINER PANEL */
+    .audio-dock {
+        position: fixed;
+        bottom: 0; left: 0; width: 100%;
+        background: #0d0d11;
+        padding: 15px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-top: 3px solid var(--juke-neon-alt);
+        box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
+        z-index: 10000;
+    }
+    .now-playing-text {
+        font-family: monospace;
+        font-size: 13px;
+        margin-bottom: 8px;
+        color: var(--juke-neon-alt);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    audio { width: 100%; max-width: 750px; filter: invert(0.9); }
+</style>
+</head>
+<body>
+
+<!-- 🏛️ MAIN WURLITZER FRAME WRAPPER CONTAINER -->
+<div class="wurlitzer-cabinet">
+    <h1>📡 Sectio 23 Listening Room</h1>
+    
+    <!-- 🎛️ CONTROLS: Year Batch Selector Deck -->
+    <div class="selector-box">
+        <label for="batchSelector">Select Timeline Archive:</label>
+        <select id="batchSelector" onchange="loadTargetCatalogJSON(this.value)">
+            <option value="">-- Choose an Year Batch --</option>
+            <option value="1955.json">1955 </option>
+            <option value="1956.json">1956 </option>
+            <option value="1957.json">1957 </option>
+            <option value="1958.json">1958 </option>
+            <option value="1959.json">1959 </option>
+            <option value="1960.json">1960 </option>
+            <option value="1961.json">1961 </option>
+            <option value="1962.json">1962 </option>
+            <option value="lost_treasures.json">lost treasures </option>
+            <option value="attic-1.json">attic - 1</option>
+            <option value="attic-2.json">attic - 2</option>
+            <option value="hit.json">hit of the week </option>
+            <option value="edison-1.json">🎙️ Edison Cylinders (Part 1)</option>
+            <option value="edison-2.json">🎙️ Edison Cylinders (Part 2)</option>
+
+        </select>
+    </div>
+
+        <!-- 💿 TURNTABLE VIEWPORT: Mechanical Animation Center Stage -->
+    <div class="mechanical-viewport">
+        <!-- The master vinyl disc container -->
+        <div class="vinyl-record-disc" id="mechanicalVinylDisc">
+            <!-- Dynamic Label: Starts as golden era color, switches to track artwork on click -->
+            <div class="vinyl-center-label" id="dynamicRecordLabel" style="background-color: #ff9f1c;">
+                <div class="center-spindle-hole"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📊 DYNAMIC INJECTOR ZONE: Double-Column Tray Output -->
+    <div id="trackListDisplay" class="track-list">
+        <p style="text-align:center; color:#888; grid-column: 1 / -1; width:100%; padding: 20px 0;">
+            Select an archive folder on the dial deck to release the title strips...
+        </p>
+    </div>
+</div>
+
+<!-- 🎵 AUDIO STORAGE AUDIO CONTAINER PANEL -->
+<div class="audio-dock">
+    <div id="nowPlayingLabel" class="now-playing-text">Status: Changer Mechanism Idle</div>
+    <audio id="globalPlayerElement" controls preload="none"></audio>
+</div>
+
+<script>
+    // Keep track of the currently running row element for visual styling resets
+    let activeVisualRowElement = null;
+
+    /**
+     * Core Fetch Engine: Reaches out directly to your local JSON files,
+     * reads your structured data rows, and injects them instantly into the DOM.
+     */
+    function loadTargetCatalogJSON(jsonTargetFile) {
+        const displayContainer = document.getElementById("trackListDisplay");
+        
+        // Reset row tracking pointer when shifting catalogs
+        activeVisualRowElement = null;
+        
+        if (!jsonTargetFile) {
+            displayContainer.innerHTML = '<p style="text-align:center; color:#888; grid-column: 1 / -1; width:100%; padding: 20px 0;">Select an archive folder on the dial deck to release the title strips...</p>';
+            return;
+        }
+
+        displayContainer.innerHTML = '<p style="text-align:center; color:var(--juke-neon-alt); grid-column: 1 / -1; width:100%; padding: 20px 0;">⏳ Engaging mechanical tray and reading record array...</p>';
+
+        fetch(jsonTargetFile)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP network error! Status returned: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(dataArray => {
+                displayContainer.innerHTML = "";
+
+                if (!dataArray || dataArray.length === 0) {
+                    displayContainer.innerHTML = '<p style="text-align:center; color:#ff4d4d; grid-column: 1 / -1; width:100%; padding: 20px 0;">⚠️ Notice: Target data array is empty or corrupt.</p>';
+                    return;
+                }
+
+                dataArray.forEach((trackRecord, index) => {
+                    const songTitle = trackRecord.title || "Unknown Historical Track";
+                    const artistName = trackRecord.artist || "Unknown Archive Artist";
+                    const streamUrl = trackRecord.unadulterated_source_url || "";
+                    
+                    // 🚨 NEW IMAGE EXTRACTOR: Target the image path variable generated by your write-json engine
+                    // Fallback to empty string if missing
+                    const artworkUrl = trackRecord.local_image_path_target || trackRecord.image_url || "";
+
+                    // Map mechanical indexing sequences (e.g., 01 -> A1 layout approach)
+                    const displayIndex = (index + 1).toString().padStart(2, '0');
+
+                    const rowElement = document.createElement("div");
+                    rowElement.className = "track-row";
+                    
+                    // Bind explicit direct row clicking for immediate mechanical injection
+                    rowElement.onclick = function() {
+                        triggerRowPlaybackSelection(rowElement, streamUrl, artworkUrl, `${artistName} - ${songTitle}`);
+                    };
+
+                    rowElement.innerHTML = `
+                        <div class="track-info">
+                            <span class="track-title"><span class="index-tag">${displayIndex}</span>${songTitle}</span>
+                            <span class="track-artist">${artistName}</span>
+                        </div>
+                        <button class="play-btn">PLAY</button>
+                    `;
+
+                    displayContainer.appendChild(rowElement);
+                });
+            })
+            .catch(error => {
+                console.error("Pipeline mapping crash:", error);
+                displayContainer.innerHTML = `<p style="text-align:center; color:#ff4d4d; grid-column: 1 / -1; width:100%; padding: 20px 0;">❌ Connection Failed: Could not resolve or read layout parameters for '${jsonTargetFile}'. Check that the JSON sits in the same directory.</p>`;
+            });
+    }
+
+    /**
+     * Intermediate UI Sync State Manager: Standardizes visual button states 
+     * before firing up the hardware audio playback engine layer.
+     */
+    function triggerRowPlaybackSelection(clickedRow, url, artworkUrl, metadataString) {
+        // Clear style highlights from any old track card stock row
+        if (activeVisualRowElement) {
+            activeVisualRowElement.classList.remove("strip-selected");
+        }
+        
+        // Lock style highlight onto the newly engaged item
+        clickedRow.classList.add("strip-selected");
+        activeVisualRowElement = clickedRow;
+
+        // Pass control blocks over to master streaming audio layer
+        fireAudioStream(url, artworkUrl, metadataString);
+    }
+
+    /**
+     * Playback Routing Controller: Switches the master source URL instantly,
+     * updates the record center label image, and activates the spin animation.
+     */
+    function fireAudioStream(targetUrl, artworkUrl, fullMetadataString) {
+        const player = document.getElementById("globalPlayerElement");
+        const statusLabel = document.getElementById("nowPlayingLabel");
+        const turntableDisc = document.getElementById("mechanicalVinylDisc");
+        const centerLabel = document.getElementById("dynamicRecordLabel");
+
+        if (!targetUrl) {
+            alert("❌ Operational Block: The source target link is missing for this record row.");
+            return;
+        }
+
+        // 🖼️ LIVE ARTWORK INJECTION: If an image exists, map it as a circular background cover layout
+        if (artworkUrl) {
+            centerLabel.style.backgroundImage = `url('${artworkUrl}')`;
+            centerLabel.style.backgroundSize = "cover";
+            centerLabel.style.backgroundPosition = "center";
+        } else {
+            // Vintage Orange fallback if a specific entry is missing artwork links
+            centerLabel.style.backgroundImage = "none";
+            centerLabel.style.backgroundColor = "#ff9f1c";
+        }
+
+        // Dynamically mount the new live link payload into the audio element
+        player.src = targetUrl;
+        statusLabel.textContent = ` Now Streaming: ${fullMetadataString}`;
+        
+        // Force the hardware decoder to initialize and play
+        player.load();
+        player.play()
+            .then(() => {
+                // Trigger the continuous 45 RPM rotation animation
+                turntableDisc.classList.add("record-spinning");
+            })
+            .catch(err => {
+                console.warn("Browser security block caught: User gesture interaction needed.", err);
+                turntableDisc.classList.remove("record-spinning");
+            });
+
+        // 🛑 UI SAFETIES: Toggle mechanical rotation instantly with user interactions
+        player.onpause = function() {
+            turntableDisc.classList.remove("record-spinning");
+        };
+        player.onplay = function() {
+            turntableDisc.classList.add("record-spinning");
+        };
+        player.onended = function() {
+            turntableDisc.classList.remove("record-spinning");
+            statusLabel.textContent = "Status: Changer Mechanism Idle";
+            // Return to the default gold label on track completion
+            centerLabel.style.backgroundImage = "none";
+            centerLabel.style.backgroundColor = "#ff9f1c";
+        };
+    }
+</script>
+
+</body>
+</html>

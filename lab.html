@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section23 // DSP Remastering Laboratory Console</title>
+    <style>
+        :root {
+            --matrix-green: #00ff00;
+            --dark-green: #002200;
+            --dim-green: #00aa00;
+            --critical-red: #ff0000;
+            --caution-orange: #ff9f1c;
+            --deep-black: #000000;
+        }
+
+        body {
+            background-color: var(--deep-black);
+            color: var(--matrix-green);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #lab-workspace {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+        }
+
+        .lab-panel {
+            border: 1px solid var(--matrix-green);
+            background: var(--deep-black);
+            padding: 15px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .panel-header {
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--matrix-green);
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Intake Zone Styling */
+        #intake-drop-zone {
+            border: 2px dashed var(--dim-green);
+            background: #000a00;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #intake-drop-zone:hover, #intake-drop-zone.dragover {
+            border-color: var(--matrix-green);
+            background: var(--dark-green);
+        }
+
+        /* Tactical Button Grid */
+        .execution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tactical-btn {
+            background: var(--dark-green);
+            color: var(--matrix-green);
+            border: 1px solid var(--matrix-green);
+            padding: 12px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.1s;
+        }
+
+        .tactical-btn:hover:not(:disabled) {
+            background: var(--matrix-green);
+            color: var(--deep-black);
+        }
+
+        .tactical-btn:disabled {
+            border-color: #004400;
+            color: #004400;
+            background: transparent;
+            cursor: not-allowed;
+        }
+
+        /* 4-Stem Mixing Board Track Strips */
+        .mixing-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .track-strip {
+            border: 1px solid var(--dim-green);
+            background: #050505;
+            padding: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .track-label {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .fader-container {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .vertical-fader {
+            writing-mode: vertical-lr;
+            direction: rtl;
+            width: 30px;
+            height: 180px;
+            cursor: pointer;
+            accent-color: var(--matrix-green);
+        }
+
+        .strip-toggle-btn {
+            background: #111;
+            color: var(--dim-green);
+            border: 1px solid var(--dim-green);
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            margin-top: 5px;
+            width: 100%;
+            font-family: monospace;
+        }
+
+        .strip-toggle-btn.active-mute {
+            background: #300;
+            color: var(--critical-red);
+            border-color: var(--critical-red);
+        }
+
+        .strip-toggle-btn.active-solo {
+            background: #320;
+            color: var(--caution-orange);
+            border-color: var(--caution-orange);
+        }
+
+        /* Terminal System Logs */
+        #terminal-telemetry-feed {
+            background: #020202;
+            border: 1px solid var(--dark-green);
+            height: 150px;
+            overflow-y: auto;
+            padding: 8px;
+            font-size: 0.75rem;
+            color: var(--dim-green);
+            line-height: 1.4;
+        }
+
+        /* Oscilloscope Viewport */
+        #oscilloscope-canvas {
+            width: 100%;
+            height: 120px;
+            background: #020202;
+            border: 1px solid var(--dark-green);
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTROL CONSOLE TITLE DECK -->
+    <div style="margin-bottom: 25px; border-bottom: 2px solid var(--matrix-green); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+            <h1 style="margin: 0; font-size: 1.6rem; letter-spacing: 2px;">SECTION23 // MULTI-TRACK AUDIO LABORATORY</h1>
+            <small style="color: var(--dim-green);">DECENTRALIZED DIGITAL SIGNAL PROCESSING LAB LAYER (v3.2.0)</small>
+        </div>
+        <a href="index.html" style="color: var(--matrix-green); text-decoration: none; font-size: 0.85rem; font-weight: bold; border: 1px solid var(--matrix-green); padding: 6px 12px; background: var(--dark-green);">
+            ← EXIT TO HOME
+        </a>
+    </div>
+
+    <!-- MAIN GRID CONTAINER -->
+    <div id="lab-workspace">
+        
+        <!-- LEFT SIDEBOARD: CORE OPERATIONS & MIXING BLOCK -->
+        <div>
+            
+            <!-- INTAKE PORTAL MODULE -->
+            <div class="lab-panel">
+                <div class="panel-header">
+                    <span>[ INTAKE BAY: MASTER TAPE LOADER ]</span>
+                    <span id="loaded-file-indicator" style="color: var(--caution-orange);">AWAITING CORE CONTAINER SOURCE</span>
+                </div>
+                <div id="intake-drop-zone">
+                    <p style="margin: 0 0 8px 0; font-weight: bold;">📥 DRAG & DROP SOURCE MASTER AUDIO MATRIX HERE</p>
+                    <p style="margin: 0; font-size: 0.75rem; color: var(--dim-green);">SUPPORTED ENGINES: LINEAR 16/24-BIT PCM WAV // MPEG-LAYER3 MP3</p>
+                    <input type="file" id="lab-file-input" accept="audio/*" style="display: none;">
+                </div>
+            </div>
+
+            <!-- 4-STEM MASTER PRODUCTION MIXING DECK -->
+            <!-- FIND THIS PANEL IN YOUR LAB.HTML AND ADD THE STYLE BELOW -->
+<div class="lab-panel" style="display: none;">
+    <div class="panel-header">
+        <span>[ HISTORICAL PRESERVATION MIXING INTERFACE ]</span>
+        <span>TAPE RESOLUTION CD STANDARD LOCK: 44.1KHZ</span>
+    </div>
+    ...
+
+                
+                <div class="mixing-board">
+                    <!-- DRUM STRIP (7kHz Cutoff Bound) -->
+                    <div class="track-strip" id="strip-drums">
+                        <div class="track-label">DRUMS</div>
+                        <div style="font-size: 0.6rem; color: var(--dim-green);">LP: 7000Hz</div>
+                        <div class="fader-container">
+                            <input type="range" class="vertical-fader" id="fader-drums" min="0" max="100" value="80">
+                        </div>
+                        <div id="txt-drums-vol" style="font-size: 0.7rem; margin-bottom: 5px;">80%</div>
+                        <button class="strip-toggle-btn" id="mute-drums" onclick="toggleTrackMute('drums')">MUTE</button>
+                        <button class="strip-toggle-btn" id="solo-drums" onclick="toggleTrackSolo('drums')">SOLO</button>
+                    </div>
+
+                    <!-- BASS STRIP (300Hz Cutoff Bound) -->
+                    <div class="track-strip" id="strip-bass">
+                        <div class="track-label">BASS</div>
+                        <div style="font-size: 0.6rem; color: var(--dim-green);">LP: 300Hz</div>
+                        <div class="fader-container">
+                            <input type="range" class="vertical-fader" id="fader-bass" min="0" max="100" value="80">
+                        </div>
+                        <div id="txt-bass-vol" style="font-size: 0.7rem; margin-bottom: 5px;">80%</div>
+                        <button class="strip-toggle-btn" id="mute-bass" onclick="toggleTrackMute('bass')">MUTE</button>
+                        <button class="strip-toggle-btn" id="solo-bass" onclick="toggleTrackSolo('bass')">SOLO</button>
+                    </div>
+
+                    <!-- VOCALS STRIP (8.5kHz Cutoff Bound) -->
+                    <div class="track-strip" id="strip-vocals">
+                        <div class="track-label">VOCALS</div>
+                        <div style="font-size: 0.6rem; color: var(--dim-green);">LP: 8500Hz</div>
+                        <div class="fader-container">
+                            <input type="range" class="vertical-fader" id="fader-vocals" min="0" max="100" value="80">
+                        </div>
+                        <div id="txt-vocals-vol" style="font-size: 0.7rem; margin-bottom: 5px;">80%</div>
+                        <button class="strip-toggle-btn" id="mute-vocals" onclick="toggleTrackMute('vocals')">MUTE</button>
+                        <button class="strip-toggle-btn" id="solo-vocals" onclick="toggleTrackSolo('vocals')">SOLO</button>
+                    </div>
+
+                    <!-- OTHER / SAX STRIP (Spotlight Channel) -->
+					                    
+                    <div class="track-strip" id="strip-other">
+                        <div class="track-label">OTHER / SAX</div>
+                        <div style="font-size: 0.6rem; color: var(--dim-green);">SPOTLIGHT STACK</div>
+                        <div class="fader-container">
+                            <input type="range" class="vertical-fader" id="fader-other" min="0" max="100" value="80">
+                        </div>
+                        <div id="txt-other-vol" style="font-size: 0.7rem; margin-bottom: 5px;">80%</div>
+                        <button class="strip-toggle-btn" id="mute-other" onclick="toggleTrackMute('other')">MUTE</button>
+                        <button class="strip-toggle-btn" id="solo-other" onclick="toggleTrackSolo('other')">SOLO</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lab-panel">
+                <div class="panel-header">
+                    <span>[ SIGNAL CONSOLE CONTROLS ]</span>
+                </div>
+                
+                <div class="execution-grid">
+                    <button id="btn-play-engine" class="tactical-btn" disabled style="grid-column: span 2; border-color: var(--caution-orange); color: var(--caution-orange);">🔊 MONITOR PROCESSING FEED</button>
+                    
+                    <button id="btn-run-ramp" class="tactical-btn" disabled>🐸 INSTIGATE BOILING RAMP</button>
+					<!-- RIGHT SLIDED COLUMN: THE NEW STANDALONE PERFORMANCE PHRASE SAMPLER -->
+        <button id="btn-run-sampler" class="tactical-btn" style="border-color: #00ffff; color: #00ffff;">
+            🔴 RECORD 3S SAMPLE
+        </button>
+                </div>
+
+                <button id="btn-export-remaster" class="tactical-btn" disabled style="width: 100%; padding: 14px; background: #003300; border-color: var(--matrix-green); color: var(--matrix-green);">💎 PRINT 24-BIT STUDIO MASTER WAV</button>
+            </div>
+
+            <div class="lab-panel">
+                <div class="panel-header">
+                    <span>[ HISTORIC ENVIRONMENT MATRIX ]</span>
+                </div>
+                <div style="font-size: 0.75rem; color: var(--dim-green); line-height: 1.6;">
+                    <label style="display: flex; justify-content: space-between; margin-bottom: 6px; cursor: pointer;">
+                        <span>🛡️ RIBBON DARKENER (RCA 44-BX):</span>
+                        <input type="checkbox" id="chk-ribbon" checked style="accent-color: var(--matrix-green);">
+                    </label>
+                    <label style="display: flex; justify-content: space-between; margin-bottom: 6px; cursor: pointer;">
+                        <span>💥 TRANSIENT LATHE LIMITER:</span>
+                        <input type="checkbox" id="chk-softener" checked style="accent-color: var(--matrix-green);">
+                    </label>
+                    <label style="display: flex; justify-content: space-between; margin-bottom: 6px; cursor: pointer;">
+                        <span>🛖 NYC MONO ROOM GLUE:</span>
+                        <input type="checkbox" id="chk-room-glue" checked style="accent-color: var(--matrix-green);">
+                    </label>
+                    <label style="display: flex; justify-content: space-between; cursor: pointer;">
+                        <span>📻 78 GROOVE SURFACE CRACKLE:</span>
+                        <input type="checkbox" id="chk-crackle" checked style="accent-color: var(--matrix-green);">
+                    </label>
+                </div>
+            </div>
+
+            <div class="lab-panel" style="padding: 10px;">
+                <div class="panel-header" style="margin-bottom: 8px; border-bottom: none;">
+                    <span>[ OSCILLOSCOPE RADAR MONITOR ]</span>
+                    <span id="scope-status" style="color: var(--dim-green);">IDLE</span>
+                </div>
+                <canvas id="oscilloscope-canvas"></canvas>
+            </div>
+
+        </div> <!-- Closes Left Sideboard Column -->
+    </div> <!-- Closes Main Lab Workspace Grid Layout -->
+
+    <div class="lab-panel" style="max-width: 1200px; margin: 20px auto 0 auto;">
+        <div class="panel-header">
+            <span>[ CONSOLE READOUT DATA SYSTEM RUNTIME LOG ]</span>
+            <span>SYSTEM READY</span>
+        </div>
+        <div id="terminal-telemetry-feed" style="height: 150px; overflow-y: auto; background: #020202; padding: 8px; font-size: 0.75rem; color: var(--dim-green); line-height: 1.4;">
+            [ SYSTEM BOOT ] Initializing Section23 Digital Signal Lab Context...<br>
+            [ AUDIO CLOCK ] Hardware Sample Rate alignment targeted to CD Standard 44100Hz.<br>
+            [ TELEMETRY ] Core patch-bay arrays mapped. Awaiting intake audio master stream binary container payload...
+        </div>
+    </div>
+
+    <script>
+         console.log("📡 Lab Console layout generated. Awaiting audio-lab framework link script injection.");
+    
+    // Global patch allocation container to connect UI functions directly with DSP nodes
+    window.mixNodes = {};
+
+    const dropZone = document.getElementById('intake-drop-zone');
+    const fileInput = document.getElementById('lab-file-input');
+    const feedLog = document.getElementById('terminal-telemetry-feed');
+
+    function printLabLog(message, isWarning = false) {
+        if (!feedLog) return;
+        const timestamp = new Date().toLocaleTimeString();
+        const colorStyle = isWarning ? 'color: var(--caution-orange);' : '';
+        feedLog.innerHTML += `<br><span style="${colorStyle}">[ ${timestamp} ] ${message}</span>`;
+        feedLog.scrollTop = feedLog.scrollHeight;
+    }
+
+    if (dropZone && fileInput) {
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) {
+                // FIXED: Extracts the exact raw singular file object at index position 0
+                initiateLabAssetUpload(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                // FIXED: Extracts the exact raw singular file object from the file input field
+                initiateLabAssetUpload(e.target.files[0]);
+            }
+        });
+    }
+
+    // Unified non-recursive intake portal hook
+    function initiateLabAssetUpload(targetFile) {
+        if (targetFile) {
+            if (typeof window.handleUploadedLabFile === "function") {
+                window.handleUploadedLabFile(targetFile);
+            } else {
+                const indicator = document.getElementById('loaded-file-indicator');
+                if (indicator) indicator.innerText = targetFile.name.toUpperCase();
+                printLabLog(`Intake file detected: "${targetFile.name}".`);
+            }
+            
+            // Instantly force all functional buttons to unlock safely
+            ['btn-play-engine', 'btn-run-ramp', 'btn-run-sampler', 'btn-export-remaster']
+                .forEach(id => {
+                    const btn = document.getElementById(id);
+                    if (btn) btn.disabled = false;
+                });
+        }
+    }
+
+    // Hook runtime input listeners directly onto all 4 vertical mixing faders
+    document.addEventListener("DOMContentLoaded", () => {
+        ['drums', 'bass', 'vocals', 'other'].forEach(track => {
+            const slider = document.getElementById(`fader-${track}`);
+            if (slider) {
+                slider.removeAttribute('oninput'); // Clear conflicting old inline hooks
+                slider.addEventListener('input', (e) => {
+                    const textLabel = document.getElementById(`txt-${track}-vol`);
+                    if (textLabel) textLabel.innerText = `${e.target.value}%`;
+                    
+                    if (typeof window.updateLiveFrequencyFader === "function") {
+                        window.updateLiveFrequencyFader(track, e.target.value);
+                    }
+                });
+            }
+        });
+    });
+
+    // 🚀 LIVE MATRIX MUTE HARDWARE SWITCH
+    function toggleTrackMute(trackName) {
+        const btn = document.getElementById(`mute-${trackName}`);
+        if (!btn) return;
+        
+        btn.classList.toggle('active-mute');
+        const isMuted = btn.classList.contains('active-mute');
+        btn.innerText = isMuted ? 'MUTED' : 'MUTE';
+        
+        printLabLog(`Channel strip modification: Toggled MUTE state for frequency layer [${trackName.toUpperCase()}].`, true);
+
+        if (window.audioCtx && window.mixNodes && window.mixNodes[trackName]) {
+            const currentSliderValue = parseFloat(document.getElementById(`fader-${trackName}`).value) / 100;
+            const targetGain = isMuted ? 0 : currentSliderValue;
+            window.mixNodes[trackName].gain.setValueAtTime(targetGain, window.audioCtx.currentTime);
+        }
+    }
+
+    // 🚀 LIVE MATRIX SOLO BUS INTERLOCK
+    function toggleTrackSolo(trackName) {
+        const btn = document.getElementById(`solo-${trackName}`);
+        if (!btn) return;
+        
+        btn.classList.toggle('active-solo');
+        const isSoloActive = btn.classList.contains('active-solo');
+        btn.innerText = isSoloActive ? 'SOLO ACTIVE' : 'SOLO';
+        
+        printLabLog(`Channel strip modification: Toggled SOLO priority for frequency layer [${trackName.toUpperCase()}].`, true);
+
+        const tracks = ['drums', 'bass', 'vocals', 'other'];
+
+        if (window.audioCtx && window.mixNodes) {
+            tracks.forEach(track => {
+                if (window.mixNodes[track]) {
+                    if (isSoloActive) {
+                        if (track !== trackName) {
+                            window.mixNodes[track].gain.setValueAtTime(0, window.audioCtx.currentTime);
+                        } else {
+                            const originalVol = parseFloat(document.getElementById(`fader-${track}`).value) / 100;
+                            window.mixNodes[track].gain.setValueAtTime(originalVol, window.audioCtx.currentTime);
+                        }
+                    } else {
+                        const isTrackCurrentlyMuted = document.getElementById(`mute-${track}`).classList.contains('active-mute');
+                        const targetVol = isTrackCurrentlyMuted ? 0 : (parseFloat(document.getElementById(`fader-${track}`).value) / 100);
+                        window.mixNodes[track].gain.setValueAtTime(targetVol, window.audioCtx.currentTime);
+                    }
+                }
+            });
+        }
+    }
+</script>
+</script>
+
+<script src="lab-sampler.js"></script>
+<script src="lab-separator.js"></script>
+<script src="lab-core.js"></script>
+</body>
+</html>
+
+

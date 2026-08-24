@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SECTION 23 // VIRTAGE DSP MATRIX</title>
+    <style>
+        body { background: #0e0e0e; color: #dcdcdc; font-family: monospace; padding: 40px; margin: 0; }
+        .console { max-width: 650px; margin: 50px auto; background: #141414; border: 1px solid #222; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        h1 { color: #fff; font-size: 18px; letter-spacing: 1px; margin: 0 0 5px 0; }
+        .track-display { background: #0b0b0b; padding: 15px; border-radius: 4px; border: 1px solid #1c1c1c; margin: 20px 0; color: #ffb300; font-size: 14px; }
+        button { background: #ef6c00; color: #fff; border: 1px solid #e65100; padding: 12px 24px; font-family: monospace; font-size: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; }
+        button:hover { background: #e65100; }
+        .status { margin-top: 20px; font-size: 12px; color: #666; text-align: center; line-height: 1.5; }
+    </style>
+</head>
+<body>
+    <div class="console">
+        <h1>🎚️ SECTION 23 PRESERVATION CONSOLE</h1>
+        <p style="color: #555; margin: 0; font-size: 11px;">Linear PCM Array Decoder & Component Modeling Engine</p>
+        
+        <div class="track-display">
+            <strong>Target Master:</strong><br>
+            <span id="trackName">Loading parameters...</span>
+        </div>
+
+        <button id="renderBtn" onclick="fireDsploop()">🚀 RUN CIRCUIT EMULATIONS & RENDER WAV</button>
+        <div class="status" id="logBox">Console initialized. Ready to process.</div>
+    </div>
+
+    <script>
+    // 1. EXTRACT CREDENTIALS FROM BROWSER ADDRESS BAR
+    const urlParams = new URLSearchParams(window.location.search);
+    const artist = urlParams.get('artist') || '';
+    const title = urlParams.get('title') || '';
+
+    // Render the text cleanly on your screen layout for the user
+    if (artist && title) {
+        document.getElementById('trackName').innerText = `${artist} - ${title}`;
+    } else {
+        document.getElementById('trackName').innerText = "Missing tracking payload credentials.";
+        document.getElementById('renderBtn').style.pointerEvents = "none";
+        document.getElementById('renderBtn').style.background = "#333";
+    }
+
+    // 2. THE CHANNELS PROCESSING AND CONVERSION LOOP
+    async function fireDsploop() {
+        const btn = document.getElementById('renderBtn');
+        const log = document.getElementById('logBox');
+        
+        btn.style.pointerEvents = "none"; 
+        btn.innerText = "⏳ DECOMPRESSING MP3 & EXECUTING MATH...";
+        log.innerHTML = "Reading bits from local cache folder into RAM buffer...";
+
+        // THE CRITICAL FIX: Formats raw text spaces into the strict system underscores 
+        // to instantly align the query payload with your 'Charlie_Parker_-_Ko_Ko.mp3' drive files.
+        const cleanArtist = artist.trim().replace(/\s+/g, '_');
+        const cleanTitle = title.trim().replace(/\s+/g, '_');
+
+        try {
+            // Fires the formatted variables cleanly to your main server port
+            const response = await fetch('http://localhost:5003/api/render-dsp-master', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ artist: cleanArtist, title: cleanTitle })
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.status === 'mastered') {
+                btn.innerText = "🎯 MASTERED WAV COMPILED!"; 
+                btn.style.background = "#2e7d32"; 
+                btn.style.borderColor = "#1b5e20";
+                log.innerHTML = `<span style="color:#8bc34a;">Success! Lossless Red Book master written to:</span><br><span style="color:#aaa;">${result.filename}</span>`;
+            } else { 
+                throw new Error(result.error || "Processing failure"); 
+            }
+        } catch(err) {
+            btn.innerText = "❌ PROCESSING FAILED"; 
+            btn.style.background = "#d32f2f"; 
+            btn.style.borderColor = "#c62828";
+            log.innerHTML = `<span style="color:#e53935;">Error: Ensure original file matches and sits inside the source_audio directory.</span>`;
+            
+            // Unlock button for retry passes
+            setTimeout(() => {
+                btn.innerText = "🚀 RUN CIRCUIT EMULATIONS & RENDER WAV";
+                btn.style.background = "#ef6c00";
+                btn.style.borderColor = "#e65100";
+                btn.style.pointerEvents = "auto";
+            }, 4000);
+        }
+    }
+</script>
+
+</body>
+</html>

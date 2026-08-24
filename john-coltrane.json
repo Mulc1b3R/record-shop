@@ -1,0 +1,71 @@
+[
+    {
+        "id": "S23-45-2454",
+        "artist": "John Coltrane, Eric Dolphy",
+        "title": "JOHN COLTRANE ERIC DOLPHY MY FAVORITE THINGS",
+        "year": "1962",
+        "genre": "Archival Coltrane John / Shellac 78",
+        "format": "78-RPM Single / Studio CD WAV Master",
+        "source_platform": "archive",
+        "unadulterated_source_url": "https://archive.org/download/1-john-coltrane-eric-dolphy-my-favorite-things/1%20John%20Coltrane%20Eric%20Dolphy%20-%20My%20favorite%20things.mp3",
+        "local_image_path_target": "https://archive.org/download/1-john-coltrane-eric-dolphy-my-favorite-things/__ia_thumb.jpg",
+        "premium_vault_download": "wav/S23-45-2454.7z",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "2.50"
+        },
+        "tags": [
+            "john coltrane, eric dolphy",
+            "78rpm",
+            "vintage",
+            "john coltrane eric dolphy my favorite things"
+        ]
+    },
+    {
+        "id": "S23-45-2454",
+        "artist": "John Coltrane, Eric Dolphy",
+        "title": "JOHN COLTRANE ERIC DOLPHY IMPROVISATION",
+        "year": "1962",
+        "genre": "Archival Coltrane John / Shellac 78",
+        "format": "78-RPM Single / Studio CD WAV Master",
+        "source_platform": "archive",
+        "unadulterated_source_url": "https://archive.org/download/1-john-coltrane-eric-dolphy-my-favorite-things/2%20John%20Coltrane%20Eric%20Dolphy%20-%20Improvisation.mp3",
+        "local_image_path_target": "https://archive.org/download/1-john-coltrane-eric-dolphy-my-favorite-things/__ia_thumb.jpg",
+        "premium_vault_download": "wav/S23-45-2454.7z",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "2.50"
+        },
+        "tags": [
+            "john coltrane, eric dolphy",
+            "78rpm",
+            "vintage",
+            "john coltrane eric dolphy improvisation"
+        ]
+    },
+    {
+        "id": "S23-45-2454",
+        "artist": "John Coltrane, Eric Dolphy",
+        "title": "JOHN COLTRANE ERIC DOLPHY MILES MODE",
+        "year": "1962",
+        "genre": "Archival Coltrane John / Shellac 78",
+        "format": "78-RPM Single / Studio CD WAV Master",
+        "source_platform": "archive",
+        "unadulterated_source_url": "https://archive.org/download/1-john-coltrane-eric-dolphy-my-favorite-things/3%20John%20Coltrane%20Eric%20Dolphy%20-%20Miles%20Mode.mp3",
+        "local_image_path_target": "https://archive.org/download/1-john-coltrane-eric-dolphy-my-favorite-things/__ia_thumb.jpg",
+        "premium_vault_download": "wav/S23-45-2454.7z",
+        "pricing": {
+            "mp3_stream_preview": "0.00",
+            "wav_digital_download": "2.50",
+            "physical_cd_single_post": "2.50"
+        },
+        "tags": [
+            "john coltrane, eric dolphy",
+            "78rpm",
+            "vintage",
+            "john coltrane eric dolphy miles mode"
+        ]
+    }
+]

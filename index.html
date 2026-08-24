@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<!-- Scales the webpage layout perfectly to fit mobile phone screens -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- Apple iOS Smart App Status Bar configuration (Blends layout background with device bar) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Audio Store">
+
+<!-- Apple Touch Icon (The icon displayed if a user saves your store to their iPhone home screen) -->
+<link rel="apple-touch-icon" href="assets/apple-icon.png">
+<!-- Web App Manifest for Android Device Integrations -->
+<link rel="manifest" href="manifest.json">
+
+<!-- Android Theme Color match for chrome mobile address bars -->
+<meta name="theme-color" content="#2ec4b6">
+
+
+    <title>Section23 Archive</title>
+
+    <link rel="stylesheet" href="style.css">
+<style>
+@keyframes ticker-slide {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+        .ticker-viewing-window {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            background: #001100;
+            border: 1px dashed #004400;
+            padding: 4px;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .ticker-scrolling-track {
+            display: inline-block;
+            padding-left: 100%;
+            color: #00ff00;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: ticker-slide 12s linear infinite;
+            animation-play-state: paused; /* Rests safely until audio pipeline activates stream */
+        }
+		:root {
+            --matrix-green: #00ff00;
+            --dim-green: #00aa00;
+            --dark-green: #001100;
+            --deep-black: #0a0a0a;
+            --caution-orange: #ff9900;
+            --cyan-accent: #00ffff;
+        }
+
+        /* Standard baseline font matching your console terminal themes */
+        .portal-container {
+            border: 1px solid var(--dim-green);
+            background: var(--deep-black);
+            padding: 25px;
+            margin-bottom: 25px;
+            font-family: monospace;
+            line-height: 1.6;
+            color: var(--matrix-green);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .portal-header {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--dim-green);
+            padding-bottom: 6px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .portal-title {
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .portal-description {
+            margin: 0 0 25px 0;
+            font-size: 0.85rem;
+            color: var(--dim-green);
+        }
+
+        /* Three-column interaction map grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .guide-card {
+            border: 1px dotted var(--dim-green);
+            padding: 12px;
+            background: #020202;
+        }
+
+        .card-tag {
+            font-size: 0.65rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .card-text {
+            margin: 0;
+            font-size: 0.75rem;
+            color: var(--dim-green);
+        }
+
+        .portal-footer-notice {
+            font-size: 0.75rem;
+            border: 1px dashed var(--dim-green);
+            padding: 10px;
+            background: rgba(0, 255, 0, 0.02);
+        }
+		
+		</style>
+</head>
+<body>
+
+<script>
+    function toggleRadioDrawerPanel() {
+        const drawer = document.getElementById("radioDrawerPanel");
+        const button = document.getElementById("radioTriggerBtn");
+        drawer.classList.toggle("drawer-active");
+        button.classList.toggle("drawer-active");
+    }
+</script>
+
+
+
+<div class="sidebar">
+    <h3>Archive Vaults</h3><br>
+    <!-- 🚨 PRIMARY SYSTEM GATEWAYS (NAVIGATION HUB) -->
+  <!-- THE MAIN CONTENT STREAM DECK -->
+<div class="main-content-stream" style="flex: 1; padding: 20px; font-family: monospace;">
+
+    <!-- =================================================================== -->
+    <!-- 🔍 1. THE SEARCH BAR (Positioned at the absolute top of the stream) -->
+    <!-- =================================================================== -->
+    <div class="search-wrapper" style="margin-bottom: 25px;">
+        <input type="text" id="catalog-search" placeholder="🔍 Search by Track, Artist, ID, or Year..." oninput="filterCatalogCards()" style="width: 100%; padding: 12px; background: #020202; border: 1px solid #005500; color: #00ff00; font-family: monospace; font-size: 0.9rem; box-sizing: border-box;">
+    </div>
+  
+  
+<div class="system-gateways-container" style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px dashed #00ff00;">
+    <div style="font-size: 0.7rem; color: #00ff00; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; border-bottom: 1px dashed #00ff00; padding-bottom: 4px; font-weight: bold;">
+        [ COGNITIVE CORE GATEWAYS ]
+    </div>
+    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;">
+        <li>
+            <a href="gateway.html" style="color: #00ff00; text-decoration: none; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 8px; padding: 6px; background: rgba(0, 255, 0, 0.05); border: 1px solid #005500;">
+                <span>🎚️</span> CENTRAL JUKEBOX ARCHIVE
+            </a>
+        </li>
+        <li>
+            <a href="wav.html" style="color: #00ff00; text-decoration: none; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 8px; padding: 6px; background: rgba(0, 255, 0, 0.05); border: 1px solid #005500;">
+                <span>🎛️</span> LIVE RE-MIXER INTERFACE
+            </a>
+        </li>
+        <!-- 🚀 THE CHRONOLOGICAL TIMELINE MACHINE GATEWAY SHORTCUT BUTTON -->
+        <li>
+            <a href="timeline.html" style="color: #00ff00; text-decoration: none; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 8px; padding: 6px; background: rgba(0, 255, 0, 0.05); border: 1px solid #005500; box-shadow: 0 0 5px rgba(0, 255, 0, 0.15);">
+                <span>📯</span> PASSPORT TO CHRONOLOGICAL CHANNELS
+            </a>
+        </li>
+        <li>
+            <a href="https://radio-freedom-ten.vercel.app/" style="color: #00ff00; text-decoration: none; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 8px; padding: 6px; background: rgba(0, 255, 0, 0.05); border: 1px solid #005500;">
+                <span>📻</span> RADIO FREEDOM STREAM
+            </a>
+        </li>
+		<li>
+            <a href="search.html" style="color: #00ff00; text-decoration: none; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 8px; padding: 6px; background: rgba(0, 255, 0, 0.05); border: 1px solid #005500;">
+                <span>📻</span> DEEP SCAN SEARCH
+            </a>
+        </li>
+                <!-- 🎬 SECTION23 DOCUMENTARY CINEMA GATEWAY LINK -->
+        <li>
+            <a href="https://www.youtube.com/channel/UCwHcPGq9kBhAm0nlKxGmOvw" target="_blank" style="color: #00ff00; text-decoration: none; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 8px; padding: 6px; background: rgba(0, 255, 0, 0.05); border: 1px solid #005500; box-shadow: 0 0 5px rgba(0, 255, 0, 0.15);">
+                <span>📺</span> SECTION23 DOCUMENTARY CINEMA
+            </a>
+        </li>
+
+        <li>
+            <a href="lab.html" style="color: #ff9900; text-decoration: none; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; gap: 8px; padding: 6px; background: rgba(255, 153, 0, 0.05); border: 1px solid #553300;">
+                <span>🐸</span> BOILING FROG AUDIO LAB
+            </a>
+        </li>
+    </ul>
+</div>
+
+      
+       <!-- Header Flag -->
+    <div style="font-size: 0.7rem; color: #00ff00; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; border-bottom: 1px dashed #00ff00; padding-bottom: 4px; font-weight: bold;">
+        [ TELEMETRY SCANNER ]
+    </div>
+
+    <!-- ZONE 1: CORE CATALOG DATA READOUT -->
+    <div style="margin-bottom: 12px; font-size: 0.75rem; color: #00ff00; line-height: 1.4;">
+        <div style="color: #00aa00; text-transform: uppercase; font-size: 0.65rem; margin-bottom: 2px;">// DATABASE MATRIX</div>
+        <div>TOTAL VAULT ENTRIES: <span id="sidebar-meta-total-tracks" style="color: #fff; font-weight: bold;">0</span></div>
+        <div>ERA TIMELINE SPAN: <span id="sidebar-meta-era-timeline" style="color: #fff; font-weight: bold;">0000 - 0000</span></div>
+    </div>
+
+    <!-- ZONE 2: ACTIVE TRACK ATTRIBUTE MONITOR + TICKER TAPE -->
+    <div style="margin-bottom: 12px; font-size: 0.75rem; color: #00ff00; line-height: 1.4; border-top: 1px dotted #004400; padding-top: 8px;">
+        <div style="color: #00aa00; text-transform: uppercase; font-size: 0.65rem; margin-bottom: 4px;">// ACTIVE NEEDLE INTERCEPT</div>
+        
+        <!-- 📟 LIVE STREAM TICKER TAPE MODULE -->
+        <div style="margin-bottom: 8px;">
+            <div style="font-size: 0.65rem; color: #00aa00; margin-bottom: 2px;">STREAMING STATUS: <span id="sidebar-meta-stream-status" style="color: #ff0000; font-weight: bold;">IDLE</span></div>
+            <div class="ticker-viewing-window">
+                <span id="sidebar-audio-ticker-track" class="ticker-scrolling-track">AWAITING SYSTEM SIGNAL LAYER...</span>
+            </div>
+        </div>
+
+        <div>ARCHIVAL CODE: <span id="sidebar-meta-track-id" style="color: #fff; font-weight: bold;">NONE</span></div>
+        <div>VELOCITY PROFILE: <span id="sidebar-meta-playback-speed" style="color: #ff9f1c; font-weight: bold;">AWAITING SIGNAL</span></div>
+        <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">MATRIX TAGS: <span id="sidebar-meta-track-tags" style="color: #00ff00; font-size: 0.7rem;">...</span></div>
+    </div>
+
+    <!-- ZONE 3: LIVE BASKET AUDIT FLOW -->
+    <div style="font-size: 0.75rem; color: #00ff00; line-height: 1.4; border-top: 1px dotted #004400; padding-top: 8px;">
+        <div style="color: #00aa00; text-transform: uppercase; font-size: 0.65rem; margin-bottom: 2px;">// STRIPE BASKET AUDIT</div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>DIGITAL ASSETS:</span> <span id="sidebar-meta-basket-digital" style="color: #fff;">0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span>PHYSICAL DISKS:</span> <span id="sidebar-meta-basket-physical" style="color: #fff;">0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-top: 1px dashed #004400; margin-top: 4px; padding-top: 4px; font-weight: bold;">
+            <span style="color: #00ff00;">CUMULATIVE TIL:</span> <span id="sidebar-meta-basket-total" style="color: #00ff00;">£0.00</span>
+        </div>
+    </div>
+
+</div>
+
+
+
+<br>
+
+    <div class="nav-links">
+        
+        <a href="index.html?genre=1954" id="link-1954" class="nav-item">🎚️ 1954</a>
+        <a href="index.html?genre=1955" id="link-1955" class="nav-item">🎚️ 1955</a>
+        <a href="index.html?genre=1956" id="link-1956" class="nav-item">🎚️ 1956</a>
+        <a href="index.html?genre=1957" id="link-1957" class="nav-item">🎚️ 1957</a>
+        <a href="index.html?genre=1958" id="link-1958" class="nav-item">🎚️ 1958</a>
+        <a href="index.html?genre=1959" id="link-1959" class="nav-item">🎚️ 1959</a>
+        <a href="index.html?genre=1960" id="link-1960" class="nav-item">🎚️ 1960</a>
+        <a href="index.html?genre=1961" id="link-1961" class="nav-item">🎚️ 1961</a>
+        <a href="index.html?genre=1962" id="link-1962" class="nav-item">🎚️ 1962</a>
+        <a href="index.html?genre=attic-1" id="link-attic-1" class="nav-item">🎚️ Attic - 1</a>
+        <a href="index.html?genre=attic-2" id="link-attic-2" class="nav-item">🎚️ Attic - 2</a>
+        <a href="index.html?genre=lost_treasures" id="link-lost_treasures" class="nav-item">🎚️ Lost Treasures</a>
+        <a href="index.html?genre=blues" id="link-blues" class="nav-item">🎚️ Blues </a>
+        <a href="index.html?genre=bebop" id="link-bebop" class="nav-item">🎚️ Bebop </a>
+        <a href="index.html?genre=78s" id="link-78s" class="nav-item">🎚️ 78's </a>
+        <a href="index.html?genre=78s-2" id="link-78s-2" class="nav-item">🎚️ 78's - 2</a>
+        <a href="index.html?genre=78s-3" id="link-78s-3" class="nav-item">🎚️ 78's - 3</a>
+        <a href="index.html?genre=78s-4" id="link-78s-4" class="nav-item">🎚️ 78's - 4</a>
+         <a href="index.html?genre=78s-5" id="link-78s-5" class="nav-item">🎚️ 78's - 5</a>
+        <a href="index.html?genre=78s-6" id="link-78s-6" class="nav-item">🎚️ 78's - 6</a>
+        <a href="index.html?genre=loc_transposed_s23_format" id="link-loc_transposed_s23_format" class="nav-item">🎚️  Victor Talking Machine Co </a>
+        
+        <a href="index.html?genre=girlbands" id="link-girlbands" class="nav-item">🎚️ Girl Groups </a>
+        <a href="index.html?genre=charlie-parker" id="link-charlie-parker" class="nav-item">🎚️ charlie-parker </a>	
+         <a href="index.html?genre=billie-holiday" id="link-billie-holiday" class="nav-item">🎚️ billie-holiday </a>
+           <a href="index.html?genre=coleman-hawkins" id="link-coleman-hawkins" class="nav-item">🎚️ Coleman Hawkins </a> 	
+        <a href="index.html?genre=hit" id="link-hit" class="nav-item">🎚️ Hit of the Week</a>
+        <a href="index.html?genre=edison-1" id="link-edison-1" class="nav-item">🎚️ Edison Recordings</a>
+        <a href="index.html?genre=edison-2" id="link-edison-2" class="nav-item">🎚️ Edison Recordings -2</a>
+         <a href="index.html?genre=louis-armstrong" id="link-louis-armstrong" class="nav-item">🎚️ Louis Armstrong  </a>
+    </div>
+
+    <!-- 📊 NEW JUKEBOX SIDEBAR MASTER CART CONTROLLER -->
+    <div class="sidebar-section" style="border-top: 1px dashed #333; margin-top: 20px; padding-top: 15px; text-align: center;">
+        <button id="sidebar-basket-counter" onclick="processMasterBasketStripeCheckout()" style="width: 100%; padding: 12px; background: #222; border: 1px dashed var(--accent); color: var(--accent); font-weight: bold; font-family: monospace; border-radius: 4px; cursor: pointer; text-transform: uppercase;">
+            🛒 Basket (0 Tracks) — £0.00
+        </button>
+        <div style="margin-top: 8px; text-align: right;">
+            <a href="javascript:void(0)" onclick="clearShoppingBasket()" style="color: #666; font-size: 0.8rem; text-decoration: none; font-family: monospace;">[ Clear Basket ]</a>
+        </div>
+    </div>
+</div>
+
+<button class="radio-toggle-anchor" id="radioTriggerBtn" onclick="toggleRadioDrawerPanel()">
+    <span>📻</span>
+    <span style="writing-mode: vertical-rl; text-transform: uppercase; letter-spacing: 1px; font-size: 11px; margin-top: 4px;">Radio Freedom</span>
+</button>
+
+<div class="radio-sidebar-drawer" id="radioDrawerPanel">
+    <iframe src="https://radio-freedom-ten.vercel.app/" class="radio-embed-viewport" allow="autoplay; encrypted-media" loading="lazy"></iframe>
+</div>
+
+<div class="main-content">
+    <h1 id="vault-title">Loading Vault...</h1>
+    <!-- THE CORRECT CONTENT DECK COLUMN -->
+<div class="main-content-stream" style="flex: 1; padding: 20px; font-family: monospace;">
+
+    <!-- 🟢 YOUR WELCOME PORTAL CARD SITS HERE STRETCHED WIDE -->
+    <div class="lab-panel" style="border: 1px solid #00ff00; background: #0a0a0a; padding: 25px; margin-bottom: 25px; line-height: 1.6; color: #00ff00;">
+        <!-- Welcome text, 3-phase guide grid, and footer notice go inside here... -->
+		 <!-- 🎯 CENTRAL RECORD SHOP WELCOME PORTAL -->
+    <div class="portal-container">
+        
+        <!-- Header Signal Status -->
+        <div class="portal-header">
+            <span>[ MAIN INDEX PORTAL // SYSTEM OVERVIEW ]</span>
+            <span style="color: var(--caution-orange);">GATEWAY STATUS: ONLINE</span>
+        </div>
+
+        <!-- Main Narrative Intro -->
+        <h2 class="portal-title">WELCOME TO THE SECTION23 RECORD SHOP</h2>
+        <p class="portal-description">
+            You have successfully synchronized with a decentralized digital signal preservation repository. This terminal acts as a direct client interface to our physical historical vaults, containing high-fidelity, uncompressed digital transfers of historical 78 RPM shellacs, rare mid-century vinyl pressings, and elite analog master audio layers.
+        </p>
+
+        <!-- Dynamic Step-by-Step Operator Mapping Matrix -->
+        <div class="guide-grid">
+            
+            <!-- PHASE 01 MODULE -->
+            <div class="guide-card">
+                <div class="card-tag" style="color: var(--caution-orange);">// PHASE 01: EXPLORE ARCHIVES</div>
+                <div class="card-title">Select an Era or Genre</div>
+                <p class="card-text">
+                    Use the primary sidebar navigation menu matrix to unlock specific timelines. Selecting an era re-allocates the central index container layout to stream historical asset data arrays instantly from our static JSON backend archive files.
+                </p>
+            </div>
+
+            <!-- PHASE 02 MODULE -->
+            <div class="guide-card">
+                <div class="card-tag" style="color: var(--cyan-accent);">// PHASE 02: THE JUKEBOX MONITOR</div>
+                <div class="card-title">Stream & Audit Tracks</div>
+                <p class="card-text">
+                    Engage any track's needle play link to activate our single-stream playback monitor feed. Watch the visual telemetry radar lines pulse on your sidebar oscilloscope display as the audio array buffers directly inside your local RAM.
+                </p>
+            </div>
+
+            <!-- PHASE 03 MODULE -->
+            <div class="guide-card">
+                <div class="guide-card-content">
+                    <div class="card-tag" style="color: var(--matrix-green);">// PHASE 03: LABORATORY CORE</div>
+                    <div class="card-title">Remaster & Print Masters</div>
+                    <p class="card-text">
+                        Download premium archive assets and drop them straight into our Boiling Frog Audio Lab framework. Tweak environmental matrix variables, instigate progressive saturation curves, and print uncompressed 24-bit WAV masters embedded with authentic artwork.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Radio Network Telemetry Notice Footer -->
+        <div class="portal-footer-notice">
+            <span style="font-weight: bold; color: var(--caution-orange);">📻 SIGNAL BROADCAST:</span> Radio Freedom is actively cycling through our massive <span style="font-weight: bold; color: #ffffff;">171,000-link database</span> at sub-millisecond speeds. Engage the radio gateway link on your sidebar panel loop to tap directly into the continuous audio timeline transmission matrix.
+        </div>
+
+    </div>
+    </div>
+
+
+    <!-- =================================================================== -->
+    <!-- 🎚️ THE TRACK RESIZER WRAPPER (This fixes the massive card bug!) -->
+    <!-- =================================================================== -->
+    <!-- This sub-grid isolates your jukebox cards from the massive intro layout width -->
+    <div class="vault-entries-wrapper" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; width: 100%;">
+       
+        <!-- 💡 Your JavaScript catalog.js injects tracks into here -->
+        <div id="catalog" style="display: contents;">
+            <!-- Dynamic song listings load safely here and stay compact! -->
+        </div>
+		 
+
+    </div>
+
+</div>
+
+    
+
+
+
+
+
+<div id="checkout-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-box">
+        <span class="modal-close" onclick="closeCheckoutModal()">&times;</span>
+        
+        <h2>Secure Archive Checkout</h2>
+        <div id="modal-item-details" style="margin-bottom: 20px; color: var(--accent); line-height: 1.5; font-family: monospace;"></div>
+
+        <form id="checkout-form" onsubmit="addTrackToShoppingBasket(event)">
+            <input type="hidden" id="modal-record-id">
+            <input type="hidden" id="modal-record-title">
+
+            <label class="form-label">Select Your Format Tier:</label>
+            <div class="format-options" style="margin-bottom: 20px;">
+                <label class="radio-container" style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="format-choice" id="opt-wav" value="WAV Master" checked required>
+                    <span class="radio-label">Digital WAV Master Download — <span id="price-wav" style="color:var(--accent); font-weight: bold;">£2.50</span></span>
+                </label>
+                <label class="radio-container" style="display: block; cursor: pointer;">
+                    <input type="radio" name="format-choice" id="opt-cd" value="CD Physical">
+                    <span class="radio-label">CD Single (Physical First-Class Post) — <span id="price-cd" style="color:var(--accent); font-weight: bold;">£2.50</span></span>
+                </label>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+                <button type="submit" class="buy-btn" style="background: #ff9f1c; color: #000; font-weight: bold; margin: 0; padding: 12px; border: none; border-radius: 4px; cursor: pointer;">
+                    🛒 Add to Basket
+                </button>
+                <button type="button" class="buy-btn" onclick="addTrackToShoppingBasket(null); processMasterBasketStripeCheckout();" style="background: #2ec4b6; color: #fff; font-weight: bold; margin: 0; padding: 12px; border: none; border-radius: 4px; cursor: pointer;">
+                    💳 Quick Checkout
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+ <script src="catalog.js"></script>
+ <script src="basket.js"></script>
+ <script src="checkout.js"></script>
+<script src="wav-extractor.js"></script>
+</body>
+</html>

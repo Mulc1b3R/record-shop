@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Freedom System Description</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #111111;
+            border-bottom: 2px solid #222222;
+            padding-bottom: 10px;
+            font-size: 28px;
+        }
+        h2 {
+            color: #222222;
+            margin-top: 30px;
+            font-size: 20px;
+        }
+        p {
+            font-size: 16px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #000000;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #666666;
+            border-top: 1px solid #dddddd;
+            padding-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Radio Freedom Architecture & Operational Workflow</h1>
+    
+    <p>This document provides a simple, universal overview of the lightweight, high-efficiency data pipeline powering the Radio Freedom historical preservation archive and independent record shop.</p>
+
+    <h2>1. The Core Philosophy: Serverless Efficiency</h2>
+    <p>Unlike standard modern websites that rely on slow, expensive corporate database servers, this system uses a <span class="highlight">flat-file architecture</span>. The frontend interface runs instantly inside the user's web browser by reading a single text-based index file (<span class="highlight">pop.json</span>). This approach eliminates server fees, protects the website from crashing, and guarantees that the digital archive remains completely portable and immune to platform modifications.</p>
+
+    <h2>2. The Four-Stage Automation Pipeline</h2>
+    <p>The daily production line is broken down into four distinct, independent micro-tasks to ensure perfect data integrity:</p>
+    <ul>
+        <li><span class="highlight">Stage 1: Inventory Control (playlist.py)</span> - An offline curation tool that scans the local hard drive, converts complex filenames into clean text signatures, cross-references them against master checklists, and automatically strips out duplicates before any downloads occur.</li>
+        <li><span class="highlight">Stage 2: Targeted Extraction (mp3-get2.py)</span> - A sequential download engine that extracts audio streams directly from web sources using a linear index-stepping loop. It re-writes filenames using a uniform dotted schema and enforces safe processing intervals to remain completely invisible to network security blocks.</li>
+        <li><span class="highlight">Stage 3: Digital Asset Hosting (GitHub Releases)</span> - Audio files are stored completely outside the main codebase inside a high-speed cloud drive attached to the repository. This storage system provides unlimited bandwidth, allows massive file sizes, avoids automated bot takedowns, and streams bytes instantly to the web player over a global developer Content Delivery Network (CDN).</li>
+        <li><span class="highlight">Stage 4: Database Compilation (test2.py)</span> - An offline assembly script that reads the final filenames from the disk, extracts clean display fields for the website, maps the permanent download paths, and logs the records straight to the local <span class="highlight">pop.json</span> file without network lag.</li>
+    </ul>
+
+    <h2>3. Master Studio DSP Engineering (Boiling Frog Module)</h2>
+    <p>To preserve original vinyl recordings and create unique intellectual property under English law, the archive utilizes advanced Digital Signal Processing (DSP) via a dedicated master studio simulation console:</p>
+    <ul>
+        <li><span class="highlight">Surgical Bandwidth Filtering</span> - Lowpass filters systematically isolate instrument frequencies and remove unwanted mechanical turntable rumble or high-end surface tape hiss.</li>
+        <li><span class="highlight">The Boiling Frog Module</span> - A custom mathematical saturation curve that gradually and exponentially increases vacuum tube harmonic density across the timeline of the song, transforming the transfer into a distinct, proprietary audio work.</li>
+        <li><span class="highlight">Acoustic Room Glue</span> - A dedicated time-delay algorithm that simulates the live room acoustics of early historical recording studios, seamlessly blending separate tracks back into a cohesive, vintage mono environment.</li>
+    </ul>
+
+    <h2>4. The Inaudible Security Fingerprint (Ultrasonic Watermark)</h2>
+    <p>To protect the restored audio masters from unauthorised scraping or copying, every single file is locked down with a hidden digital tracking signature before publication:</p>
+    <ul>
+        <li><span class="highlight">Ultrasonic Carrier Signal</span> - A permanent tone is injected at exactly <span class="highlight">20,000 Hz</span>, sitting safely at the absolute technical limit of digital audio files. This frequency is completely outside the range of human hearing, ensuring the audio quality is perfectly preserved for listeners.</li>
+        <li><span class="highlight">Morse Code Encryption</span> - The high-frequency tone turns on and off at precise millisecond boundaries, spelling out <span class="highlight">"SECTION 23 MP3"</span> inside the three-second silences at the beginning and end of the track.</li>
+        <li><span class="highlight">Forensic Math Verification (verify.py)</span> - While standard media players mask this frequency, a custom verification script runs a Fast Fourier Transform (FFT) calculation to separate the sound into mathematical columns. It reads the raw bytes instantly and prints a definitive validation readout if the signature is present.</li>
+    </ul>
+
+    <div class="footer">
+        Digital Preservation Master & Curation Archive Architecture &copy; Radio Freedom
+    </div>
+
+</body>
+</html>
