@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section23 // Core Telemetry Deep-Scan Terminal</title>
+    <style>
+        :root {
+            --matrix-green: #00ff00;
+            --dim-green: #005500;
+            --caution-orange: #ffaa00;
+            --terminal-bg: #020202;
+            --panel-bg: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--terminal-bg);
+            color: var(--matrix-green);
+            font-family: monospace;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .terminal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px solid var(--matrix-green);
+            background: var(--panel-bg);
+            padding: 25px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.15);
+        }
+
+        .header-panel {
+            border-bottom: 2px dashed var(--matrix-green);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .search-core-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: #000;
+            border: 1px solid var(--dim-green);
+            color: var(--matrix-green);
+            padding: 12px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+        }
+
+        .scan-trigger-btn {
+            background: #111;
+            border: 1px solid var(--matrix-green);
+            color: var(--matrix-green);
+            padding: 12px 30px;
+            font-family: monospace;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .scan-trigger-btn:hover {
+            background: var(--matrix-green);
+            color: #000;
+        }
+
+        .status-feed-line {
+            color: var(--caution-orange);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            min-height: 18px;
+        }
+
+        .results-workspace-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-top: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        /* Jukebox Style Output Panel Cards */
+        .match-telemetry-card {
+            border: 1px solid var(--dim-green);
+            background: #030303;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .match-telemetry-card:hover {
+            border-color: var(--matrix-green);
+        }
+
+        .card-meta-tag {
+            font-size: 0.65rem;
+            color: var(--caution-orange);
+            font-weight: bold;
+        }
+
+        .track-title-string {
+            font-size: 0.95rem;
+            color: #ffffff;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .source-url-string {
+            font-size: 0.7rem;
+            color: #888888;
+            word-break: break-all;
+        }
+
+        .engage-stream-btn {
+            align-self: flex-start;
+            background: #0f0f0f;
+            border: 1px solid var(--dim-green);
+            color: var(--matrix-green);
+            padding: 6px 14px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            margin-top: 4px;
+            text-decoration: none;
+        }
+
+        .engage-stream-btn:hover {
+            border-color: var(--matrix-green);
+            background: #001a00;
+        }
+
+        /* Custom Scrollbar for Matrix Aesthetic */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--dim-green); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--matrix-green); }
+		
+		        /* 📊 Neon Telemetry Dashboard Panel */
+        .telemetry-badge-container {
+            display: none; /* Hidden by default, flashes awake on execution */
+            background: #000b00;
+            border: 1px dashed var(--matrix-green);
+            padding: 15px;
+            margin: 20px 0;
+            font-family: monospace;
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.05);
+        }
+
+        .telemetry-row-main {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .telemetry-split-stats {
+            font-size: 0.75rem;
+            color: var(--caution-orange);
+            display: flex;
+            gap: 20px;
+            border-top: 1px dotted var(--dim-green);
+            padding-top: 6px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="terminal-container">
+    <div class="header-panel">
+        <h2 style="margin: 0 0 5px 0; letter-spacing: 2px;">📡 SECTION23 CORE CORE SYSTEM DEEP-SCANNER</h2>
+        <div style="font-size: 0.75rem; color: #888;">[ COGNITIVE REPOSITORY INDEX AUDIO TELEMETRY MATRIX ]</div>
+    </div>
+
+    <!-- 🔍 THE MASTER INPUT INTERFACE BLOCK -->
+    <div class="search-core-box">
+        <input type="text" id="deep-query-input" placeholder="Enter keyword or string sequence fragment (e.g. churchill, 1945, blues)..." onkeypress="handleConsoleKeyPress(event)">
+        <button class="scan-trigger-btn" onclick="executeGlobalVaultScan()">Execute Scan</button>
+    </div>
+
+       <!-- ⏱️ USER NOTIFICATION FEED LAYER -->
+    <div id="status-display-node" class="status-feed-line">SYSTEM STATUS: Ready to engage indices...</div>
+
+    <!-- 📊 THE AUTOMATED TELEMETRY DASHBOARD PANEL -->
+    <div id="telemetry-panel" class="telemetry-badge-container"></div>
+
+    <!-- 🎚️ CLICKABLE RESULT STREAM GRID OVERLAY -->
+    <div id="results-grid" class="results-workspace-grid"></div>
+
+
+<script>
+    // 🚀 THE SYSTEM REPOSITORY REGISTRY MAP
+    // Add or remove your active JSON file targets from this array as your database grows!
+    const DEEP_SCAN_REGISTRY = [
+	    "deep-scan/ssf088_2210.json",
+	    "deep-scan/your-hit-parade-50s-instrumentals.json",
+	    "deep-scan/wwIIarchive-audio.json",
+		"deep-scan/world-in-action.json",
+		"deep-scan/wise-crack-dictionary.json",
+		"deep-scan/the-history-of-rome.json",
+		"deep-scan/test.json",
+	    "deep-scan/ivoox.com.json",
+		"deep-scan/sonic-youth-1986.json",
+		"deep-scan/somafmlive.json",
+		"deep-scan/sherlock.json",
+		"deep-scan/psychedelia.json",
+		"deep-scan/politicsandprose.json",
+		"deep-scan/play.json",
+		"deep-scan/pirateradioairchecks.json",
+		"deep-scan/otrb.json",
+		"deep-scan/old-time-radio-christmas-shows.json",
+		"deep-scan/lord-of-the-rings.json",
+		"deep-scan/load.json",
+		"deep-scan/living-the-blues-the-70s-blues-classics.json",
+		"deep-scan/living-the-blues-louisiana-blues-classics.json",
+		"deep-scan/jingles.json",
+         "deep-scan/gunsmoke_radio_show.json",
+         "deep-scan/communistmanifesto.json",
+         "deep-scan/choice-classic-radio.json",
+        "deep-scan/boxcars711.json",
+        "deep-scan/beyond-tomorrow.json",		 
+        "deep-scan/bbc_world_service.json",
+        "deep-scan/bbc comedy.json", 
+        "deep-scan/bach-the-masterpiece-collection.json",
+        "deep-scan/archive.json", 
+        "deep-scan/acast-com.json",		
+	    "deep-scan/abbottandcostello.json", 
+        "deep-scan/X-Minus-One.json",
+		"deep-scan/Twilight-zone.json", 
+        "deep-scan/The-Shadow.json",
+		"deep-scan/Tarzan_Singles.json", 
+        "deep-scan/Suspense.json",
+	    "deep-scan/Sci-fi-Radio.json", 
+        "deep-scan/Sam_Spade_Singles.json",
+		"deep-scan/Mystery-Shows.json", 
+        "deep-scan/Mysterious-Traveler.json",
+		"deep-scan/Murder_By_Experts.json", 
+        "deep-scan/Manly_P.Hall.json",
+		"deep-scan/Lum-and-Abner-OTR.json", 
+        "deep-scan/Haunted-BBC.json",
+	    "deep-scan/Exploring-Tomororw.json", 
+        "deep-scan/GusArnheimCollection.json",
+	    "deep-scan/Drone-Zone.json", 
+        "deep-scan/BBC.json",
+        "deep-scan/Alfred-Hitchcock.json", 
+        "deep-scan/78rpm_shira-berk.json",
+        "deep-scan/250-years-of-great-music.json",
+        "deep-scan/2000-Plus.json",
+        "deep-scan/OrsonWelles-MercuryTheater.json",
+        "deep-scan/master_shop_links_radio_format.json",
+        "deep-scan/loc_flat_timeline.json"
+    ];
+
+    // Master memory system cache array storage boundaries
+    let masterMemoryCachePool = null;
+
+    function handleConsoleKeyPress(event) {
+        if (event.key === 'Enter') {
+            executeGlobalVaultScan();
+        }
+    }
+
+    // 📡 PARALLEL DATA LOADER CORE: Fetches and stitche indices in memory simultaneously
+    async function loadMasterVaultCache() {
+        const statusNode = document.getElementById("status-display-node");
+        statusNode.innerHTML = "⏱️ INITIALIZING SYSTEM DEEP-SCAN... LOADING CHUNKS, PLEASE STANDBY FOR SHORT WAIT...";
+        
+        try {
+            // Deploy parallel network requests to fly under blocking barriers
+            const fetchPromises = DEEP_SCAN_REGISTRY.map(async (fileUrl) => {
+                try {
+                    const response = await fetch(fileUrl);
+                    if (!response.ok) return [];
+                    const data = await response.json();
+                    
+                    // Natively capture string paths whether file is inside 'mp3s' list or a complex object array
+                    if (data && data.mp3s && Array.isArray(data.mp3s)) {
+                        return data.mp3s.map(url => ({ url: url, source: fileUrl.split('/').pop() }));
+                    } else if (Array.isArray(data)) {
+                        return data.map(item => ({ 
+                            url: item.unadulterated_source_url || "", 
+                            source: fileUrl.split('/').pop() 
+                        })).filter(obj => obj.url !== "");
+                    }
+                    return [];
+                } catch (e) {
+                    console.error(`Error loading database partition ${fileUrl}:`, e);
+                    return [];
+                }
+            });
+
+            const resultsArrays = await Promise.all(fetchPromises);
+            masterMemoryCachePool = resultsArrays.flat();
+            console.log(`📡 Memory Core Initialised: Secured ${masterMemoryCachePool.length} active database links inside RAM.`);
+        } catch (err) {
+            statusNode.innerHTML = "❌ Critical System Handshake Failure: Could not load repository indexes.";
+            console.error(err);
+        }
+    }
+
+       // 🚀 HIGH-SPEED SUB-STRING INTERCEPT MATCH ENGINE WITH TELEMETRY CAPABILITIES
+    async function executeGlobalVaultScan() {
+        const queryInput = document.getElementById("deep-query-input");
+        const statusNode = document.getElementById("status-display-node");
+        const telemetryPanel = document.getElementById("telemetry-panel");
+        const resultsGrid = document.getElementById("results-grid");
+        
+        const rawQuery = queryInput.value.trim().toLowerCase();
+        
+        if (!rawQuery) {
+            statusNode.innerHTML = "⚠️ WARNING: Console requires an entry string parameter before executing scan.";
+            telemetryPanel.style.display = "none";
+            return;
+        }
+
+        // Lazy load the memory cache on the first click
+        if (!masterMemoryCachePool) {
+            await loadMasterVaultCache();
+            if (!masterMemoryCachePool) return;
+        }
+
+        statusNode.innerHTML = `🔍 CRAWLING ${masterMemoryCachePool.length.toLocaleString()} VAULT NODES SECURED IN RAM...`;
+        telemetryPanel.style.display = "none"; // Reset panel view
+        resultsGrid.innerHTML = ""; 
+
+        // ⏱️ START TELEMETRY TIMERS: Capture start snapshot down to the millisecond
+        const startTimeMark = performance.now();
+
+        // Scrub spaces and symbols out of your search query for space-blind matching
+        const fullyScrubbedUserQuery = rawQuery.replace(/[\s\-_]/g, '');
+
+        let radioMatchesCount = 0;
+        let shopMatchesCount = 0;
+        let htmlBuffer = "";
+
+        // Run high-speed filter across your 180,000 memory-cached entries
+        const matchedHits = masterMemoryCachePool.filter(node => {
+            const decodedPath = decodeURIComponent(node.url).toLowerCase();
+            const fullyScrubbedUrlPath = decodedPath.replace(/[\s\-_]/g, '');
+            
+            return fullyScrubbedUrlPath.includes(fullyScrubbedUserQuery);
+        });
+
+        // ⏱️ STOP TELEMETRY TIMERS: Stop watch snapshot
+        const endTimeMark = performance.now();
+        const absoluteScanTimeSecs = ((endTimeMark - startTimeMark) / 1000).toFixed(4);
+
+        statusNode.innerHTML = "🎲 SYSTEM INVENTORY SCAN COMPLETE // FLUSHING VISUAL GRIDS...";
+
+        if (matchedHits.length === 0) {
+            resultsGrid.innerHTML = `<p style="color: var(--caution-orange); font-size: 0.85rem;">⚠️ Zero tracking nodes located matching string sequence footprint: "${rawQuery}"</p>`;
+            return;
+        }
+
+        // 🎨 CALCULATE METRICS AND RENDER INTERACTIVE STREAM NODE CARDS
+        matchedHits.forEach((hit, index) => {
+            // Track the source origin of each individual match entry
+            if (hit.source.toLowerCase().includes("radio")) {
+                radioMatchesCount++;
+            } else {
+                shopMatchesCount++;
+            }
+
+            const filenameWithExt = hit.url.split('/').pop();
+            let cleanTitle = filenameWithExt.replace('.mp3', '');
+            
+            cleanTitle = cleanTitle.replace(/[-_]/g, ' ').replace(/\s+/g, ' ').trim().toUpperCase();
+            cleanTitle = cleanTitle.replace(/([A-Z])(\d)/g, '$1 $2').replace(/(\d)([A-Z])/g, '$1 $2');
+
+            if (!cleanTitle) {
+                cleanTitle = "HISTORICAL VAULT MATRIX SEGMENT AUDIO";
+            }
+
+            htmlBuffer += `
+                <div class="match-telemetry-card">
+                    <div class="card-meta-tag">// SEARCH MATCH INTERCEPT [${index + 1}] // ORIGIN: ${hit.source.toUpperCase()}</div>
+                    <div class="track-title-string">${cleanTitle} (ARCHIVE)</div>
+                    <div class="source-url-string">URL: ${hit.url}</div>
+                    <a href="${hit.url}" target="_blank" class="engage-stream-btn">
+                        📡 ENGAGE STREAM MONITOR FEED
+                    </a>
+                </div>
+            `;
+        });
+        
+        // 📊 FLASH THE TELEMETRY BADGE DATA ONTO YOUR MONITOR SCREEN
+        telemetryPanel.innerHTML = `
+            <div class="telemetry-row-main">
+    📊 COUNTER TELEMETRY: ${matchedHits.length.toLocaleString()} MATCHES CHOPPED IN [ ${absoluteScanTimeSecs} SECS ]
+</div>
+
+            <div class="telemetry-split-stats">
+                <span>📻 RADIO ARCHIVE MATCHES: <strong>${radioMatchesCount.toLocaleString()}</strong></span>
+                <span>🎚️ RECORD SHOP ENTRIES: <strong>${shopMatchesCount.toLocaleString()}</strong></span>
+                <span>💾 SCANNED CAPACITY: <strong>${masterMemoryCachePool.length.toLocaleString()} URL LINES</strong></span>
+            </div>
+        `;
+        telemetryPanel.style.display = "block"; // Make the container visible instantly
+        
+        resultsGrid.innerHTML = htmlBuffer;
+    }
+
+</script>
+
+</body>
+</html>
+

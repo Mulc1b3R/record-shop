@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section23 Audio Archive Catalog</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-muted: #aaaaaa;
+            --accent: #d4af37; /* Vintage Gold */
+            --accent-hover: #f3cf55;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 30px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+        }
+
+        .catalog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .record-card {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: border-color 0.2s;
+        }
+
+        .record-card:hover {
+            border-color: var(--accent);
+        }
+
+        .record-header {
+            margin-bottom: 15px;
+        }
+
+        .catalog-id {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .record-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 5px 0;
+            color: #fff;
+        }
+
+        .record-artist {
+            font-size: 1rem;
+            color: var(--text-main);
+            font-style: italic;
+        }
+
+        .record-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 15px;
+            border-top: 1px dashed #333;
+            border-bottom: 1px dashed #333;
+            padding: 10px 0;
+        }
+
+        .pricing-tier {
+            font-size: 0.85rem;
+            margin: 4px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .price-value {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .tags-container {
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #2a2a2a;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .buy-btn {
+            background-color: var(--accent);
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .buy-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Section23 Archive Catalog</h1>
+    <div class="subtitle">Shellac 78-RPM & Archival Masters Database</div>
+
+    <div id="catalog" class="catalog-container">Loading archives...</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Updated file path target
+            const jsonUrl = 'section23_youtube_catalog.json'; 
+            
+            fetch(jsonUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(records => {
+                    const catalogContainer = document.getElementById('catalog');
+                    catalogContainer.innerHTML = ''; 
+
+                    if (records.length === 0) {
+                        catalogContainer.innerHTML = '<p>No archival entries found.</p>';
+                        return;
+                    }
+
+                    records.forEach(record => {
+                        const card = document.createElement('div');
+                        card.className = 'record-card';
+                        
+                        // Parse tags into elements
+                        const tagsHTML = record.tags
+                            ? record.tags.map(t => `<span class="tag">#${t}</span>`).join('')
+                            : '';
+
+                        card.innerHTML = `
+                            <div class="record-header">
+                                <div class="catalog-id">${record.id} [${record.year || 'N/A'}]</div>
+                                <div class="record-title">${record.title}</div>
+                                <div class="record-artist">by ${record.artist}</div>
+                            </div>
+
+                            <div class="record-meta">
+                                <div><strong>Genre:</strong> ${record.genre}</div>
+                                <div><strong>Format:</strong> ${record.format}</div>
+                                <div><strong>Platform:</strong> ${record.source_platform.toUpperCase()}</div>
+                                <div style="margin-top: 8px;"><strong>Pricing Tiers:</strong></div>
+                                <div class="pricing-tier"><span>Digital MP3 Preview:</span> <span class="price-value">£${record.pricing.mp3_stream_preview}</span></div>
+                                <div class="pricing-tier"><span>Digital WAV Master Download:</span> <span class="price-value">£${record.pricing.wav_digital_download}</span></div>
+                                <div class="pricing-tier"><span>Physical CD Single (Post):</span> <span class="price-value">£${record.pricing.physical_cd_single_post}</span></div>
+                            </div>
+
+                            <div>
+                                <div class="tags-container">${tagsHTML}</div>
+                                <button class="buy-btn" onclick="initiatePurchase('${record.id}')">Buy Record Master</button>
+                            </div>
+                        `;
+                        
+                        catalogContainer.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error building catalog:", error);
+                    document.getElementById('catalog').innerHTML = `
+                        <p class="error-message">Database Connection Error. Ensure you are running a local dev server environment.</p>
+                    `;
+                });
+        });
+
+        function initiatePurchase(recordId) {
+            alert(`Order workflow initiated for Archive Reference: ${recordId}`);
+            // Integrate your shopping cart backend logic or payment gateway link here
+        }
+    </script>
+</body>
+</html>
+

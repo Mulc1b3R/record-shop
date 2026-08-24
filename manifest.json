@@ -1,0 +1,16 @@
+{
+  "short_name": "Audio Store",
+  "name": "Audio Archive Store",
+  "icons": [
+    {
+      "src": "assets/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#121212",
+  "theme_color": "#2ec4b6",
+  "display": "standalone",
+  "orientation": "portrait"
+}

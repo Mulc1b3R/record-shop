@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Freedom: Sonic Watermark Specification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #111111;
+            border-bottom: 2px solid #222222;
+            padding-bottom: 10px;
+            font-size: 28px;
+        }
+        h2 {
+            color: #222222;
+            margin-top: 30px;
+            font-size: 20px;
+        }
+        p {
+            font-size: 16px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #000000;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 14px;
+            color: #666666;
+            border-top: 1px solid #dddddd;
+            padding-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>The Section 23 Ultrasonic Watermark Specification</h1>
+    
+    <p>This document details the engineering blueprint, signal physics, and mathematical verification routines used to embed an un-copyable, invisible proof-of-custody signature into the Radio Freedom audio catalog.</p>
+
+    <h2>1. The Core Innovation: High-Frequency Hiding</h2>
+    <p>Traditional audio watermarks either ruin the listening experience by adding audible noise or can be easily stripped out by deleting standard text ID3 metadata tags. This system avoids both flaws by baking an <span class="highlight">ultrasonic data signal</span> directly into the acoustic frequency matrix of the audio track itself.</p>
+    <ul>
+        <li><span class="highlight">The 20,000 Hz Carrier Tone</span> - The watermark utilizes a steady audio frequency wave generated precisely at 20 kHz. This sits at the absolute absolute ceiling of digital audio file space, well out of range for standard adult human hearing.</li>
+        <li><span class="highlight">Preservation of Silence</span> - The signature is specifically injected into the three-second silent spaces at the very beginning and very end of the music track. To a human listener, the track starts and ends in complete, pristine silence.</li>
+    </ul>
+
+    <h2>2. Cryptographic Encoding: The Morse Matrix</h2>
+    <p>Instead of hosting a continuous tone that could be identified by basic noise-reduction software, the 20,000 Hz signal uses an automated binary amplitude gate. The oscillator turns on (Value: 1) and off (Value: 0) at precise millisecond boundaries, physically drawing out a classic <span class="highlight">Morse Code sequence</span> directly inside the high-end frequency shelf.</p>
+    <p>The code is mathematically mapped to spell out the master repository registry token: <span class="highlight">SECTION 23 MP3</span></p>
+    <ul>
+        <li><span class="highlight">S</span> (. . .) &nbsp;&nbsp;&nbsp; <span class="highlight">E</span> (.) &nbsp;&nbsp;&nbsp; <span class="highlight">C</span> (- . - .) &nbsp;&nbsp;&nbsp; <span class="highlight">T</span> (-) &nbsp;&nbsp;&nbsp; <span class="highlight">I</span> (. .) &nbsp;&nbsp;&nbsp; <span class="highlight">O</span> (- - -) &nbsp;&nbsp;&nbsp; <span class="highlight">N</span> (- .)</li>
+        <li><span class="highlight">2</span> (. . - - -) &nbsp;&nbsp;&nbsp; <span class="highlight">3</span> (. . . - -)</li>
+        <li><span class="highlight">M</span> (- -) &nbsp;&nbsp;&nbsp; <span class="highlight">P</span> (. - - .) &nbsp;&nbsp;&nbsp; <span class="highlight">3</span> (. . . - -)</li>
+    </ul>
+
+    <h2>3. The Forensic Verification Loop (verify.py)</h2>
+    <p>Standard visualizers and media players automatically truncate their graphs at 16 kHz or 18 kHz to save system resources, completely hiding the watermark from view. To verify custody without third-party tools, the pipeline uses custom mathematical software to run a digital forensic audit:</p>
+    <ul>
+        <li><span class="highlight">Raw Stream Extraction</span> - The script uses FFmpeg to bypass the player filters entirely, converting the first 3 seconds of the audio file into a raw, headerless 32-bit floating-point PCM mono byte stream.</li>
+        <li><span class="highlight">Fast Fourier Transform (FFT)</span> - The software passes the raw number matrix through a Fast Fourier Transform algorithm via Python's native <span class="highlight">numpy</span> library. This mathematically uncoils the audio wave over time, sorting the sound into precise frequency blocks.</li>
+        <li><span class="highlight">The Noise Floor Threshold Gate</span> - The engine isolates the exact coordinate index where 20,000 Hz lives. It calculates the average volume of the surrounding high-end tape hiss and scratch noise. If the amplitude at exactly 20,000 Hz spikes significantly higher than that background noise floor, the math validates the signature and logs a definitive <span class="highlight">[MATCH FOUND]</span> alert.</li>
+    </ul>
+
+    <h2>4. Un-Fakeable Chain of Custody</h2>
+    <p>Because this fingerprint is physically embedded within the structural audio bytes of your premium 320kbps MP3s and uncompressed studio WAV masters, it is permanently locked to your files. If an external website or competitor scrapes your catalog, renames the files, or wipes your text tags, your verification script will catch them instantly by reading the raw frequency data straight from their public stream links.</p>
+
+    <div class="footer">
+        Ultrasonic Signature System &amp; Security Engineering &copy; Radio Freedom
+    </div>
+
+</body>
+</html>

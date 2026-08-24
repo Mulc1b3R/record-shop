@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section23 // Chronological Telemetry Jukebox Terminal</title>
+    <style>
+        :root {
+            --matrix-green: #00ff00;
+            --dim-green: #005500;
+            --caution-orange: #ffaa00;
+            --terminal-bg: #020202;
+            --panel-bg: #0a0a0a;
+        }
+
+        body {
+            background-color: var(--terminal-bg);
+            color: var(--matrix-green);
+            font-family: monospace;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            border: 1px solid var(--matrix-green);
+            background: var(--panel-bg);
+            padding: 25px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.15);
+        }
+
+        .header-panel {
+            border-bottom: 2px dashed var(--matrix-green);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        /* 🎛️ ERA SELECTION GRID DECK */
+        .era-button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .era-fader-btn {
+            background: #111;
+            border: 1px solid var(--dim-green);
+            color: var(--matrix-green);
+            padding: 15px 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+            box-shadow: inset 0 0 5px rgba(0, 85, 0, 0.2);
+        }
+
+        .era-fader-btn:hover {
+            border-color: var(--matrix-green);
+            background: #001a00;
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+        }
+
+        .era-fader-btn.active-transmission {
+            background: var(--matrix-green);
+            color: #000;
+            border-color: var(--matrix-green);
+            box-shadow: 0 0 12px rgba(0, 255, 0, 0.5);
+        }
+
+        /* 📊 THE AUTOMATED TELEMETRY MONITOR DECK */
+        .telemetry-monitor-panel {
+            background: #000b00;
+            border: 1px dashed var(--matrix-green);
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.05);
+        }
+
+        .telemetry-row {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .telemetry-sub-stats {
+            font-size: 0.75rem;
+            color: var(--caution-orange);
+            border-top: 1px dotted var(--dim-green);
+            padding-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        /* 🔊 AUDIO CONTROLLER COMPONENT INTERNAL LAYOUT */
+        .hidden-audio-deck {
+            margin-top: 20px;
+            background: #000;
+            border: 1px solid var(--dim-green);
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        audio {
+            width: 100%;
+            filter: invert(1) hue-rotate(90deg) saturate(3); /* Custom matrix-green audio layout bar pass */
+        }
+
+        .track-feed-list {
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid var(--dim-green);
+            background: #020202;
+            padding: 10px;
+            font-size: 0.8rem;
+        }
+
+        .feed-item {
+            padding: 4px 0;
+            border-bottom: 1px dotted #111;
+            color: #888;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .feed-item.playing-now {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--dim-green); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--matrix-green); }
+    </style>
+</head>
+<body>
+
+<div class="timeline-container">
+    <div class="header-panel">
+        <h2 style="margin: 0 0 5px 0; letter-spacing: 2px;">🎚️ SECTION23 CHRONOLOGICAL TELEMETRY GRID</h2>
+        <div style="font-size: 0.75rem; color: #888;">[ PASSIVE CONTINUOUS ARCHIVE TIME-MACHINE DECK ]</div>
+    </div>
+
+    <!-- 🎛️ STEP A: CONNECT THE ERA CONTROL BUTTONS -->
+    <div class="era-button-grid">
+        <button class="era-fader-btn" id="btn-1920" onclick="tuneToTimelineYear('1920')">📯 1920s Horn</button>
+        <button class="era-fader-btn" id="btn-1938" onclick="tuneToTimelineYear('1938')">📻 1938 Munich</button>
+        <button class="era-fader-btn" id="btn-1945" onclick="tuneToTimelineYear('1945')">🎙️ 1945 Victory</button>
+        <button class="era-fader-btn" id="btn-1954" onclick="tuneToTimelineYear('1954')">🎸 1954 Blues</button>
+    </div>
+
+    <!-- 📊 THE AUTOMATED TELEMETRY DASHBOARD PANEL -->
+    <div class="telemetry-monitor-panel">
+        <div id="telemetry-main-title" class="telemetry-row">📡 MONITOR SYSTEM: Standby. Indices unengaged.</div>
+        <div class="telemetry-sub-stats">
+            <div id="stat-line-1">QUEUE CAPACITY: 0 TRACKS BUFFERED</div>
+            <div id="stat-line-2">NOW MONITORING: ZERO FEED ACTIVITY</div>
+            <div id="stat-line-3">NEXT ARRIVAL BUFFER: WAITING INGESTION</div>
+        </div>
+    </div>
+
+    <!-- 🔊 THE SYSTEM AUDIO INTERFACE CONTROL COMPONENT -->
+    <div class="hidden-audio-deck">
+        <audio id="timeline-audio-node" controls></audio>
+    </div>
+
+    <!-- 📋 AUTOMATED LIVE TRACK UPCOMING PLAYLIST CONTAINER -->
+    <div id="playlist-feed-box" class="track-feed-list">
+        <div style="color: #444;">// Upcoming timeline stream tracking matrix nodes will populate here...</div>
+    </div>
+</div>
+<script>
+    // 🚀 THE SYSTEM REPOSITORY REGISTRY MAP
+    // Automatically scaled to crawl across all 55 partition files in your folder warehouse
+    const DEEP_SCAN_REGISTRY = [
+	    "deep-scan/ssf088_2210.json",
+	    "deep-scan/your-hit-parade-50s-instrumentals.json",
+	    "deep-scan/wwIIarchive-audio.json",
+		"deep-scan/world-in-action.json",
+		"deep-scan/wise-crack-dictionary.json",
+		"deep-scan/the-history-of-rome.json",
+		"deep-scan/test.json",
+	    "deep-scan/ivoox.com.json",
+		"deep-scan/sonic-youth-1986.json",
+		"deep-scan/somafmlive.json",
+		"deep-scan/sherlock.json",
+		"deep-scan/psychedelia.json",
+		"deep-scan/politicsandprose.json",
+		"deep-scan/play.json",
+		"deep-scan/pirateradioairchecks.json",
+		"deep-scan/otrb.json",
+		"deep-scan/old-time-radio-christmas-shows.json",
+		"deep-scan/lord-of-the-rings.json",
+		"deep-scan/load.json",
+		"deep-scan/living-the-blues-the-70s-blues-classics.json",
+		"deep-scan/living-the-blues-louisiana-blues-classics.json",
+		"deep-scan/jingles.json",
+         "deep-scan/gunsmoke_radio_show.json",
+         "deep-scan/communistmanifesto.json",
+         "deep-scan/choice-classic-radio.json",
+        "deep-scan/boxcars711.json",
+        "deep-scan/beyond-tomorrow.json",		 
+        "deep-scan/bbc_world_service.json",
+        "deep-scan/bbc comedy.json", 
+        "deep-scan/bach-the-masterpiece-collection.json",
+        "deep-scan/archive.json", 
+        "deep-scan/acast-com.json",		
+	    "deep-scan/abbottandcostello.json", 
+        "deep-scan/X-Minus-One.json",
+		"deep-scan/Twilight-zone.json", 
+        "deep-scan/The-Shadow.json",
+		"deep-scan/Tarzan_Singles.json", 
+        "deep-scan/Suspense.json",
+	    "deep-scan/Sci-fi-Radio.json", 
+        "deep-scan/Sam_Spade_Singles.json",
+		"deep-scan/Mystery-Shows.json", 
+        "deep-scan/Mysterious-Traveler.json",
+		"deep-scan/Murder_By_Experts.json", 
+        "deep-scan/Manly_P.Hall.json",
+		"deep-scan/Lum-and-Abner-OTR.json", 
+        "deep-scan/Haunted-BBC.json",
+	    "deep-scan/Exploring-Tomororw.json", 
+        "deep-scan/GusArnheimCollection.json",
+	    "deep-scan/Drone-Zone.json", 
+        "deep-scan/BBC.json",
+        "deep-scan/Alfred-Hitchcock.json", 
+        "deep-scan/78rpm_shira-berk.json",
+        "deep-scan/250-years-of-great-music.json",
+        "deep-scan/2000-Plus.json",
+        "deep-scan/OrsonWelles-MercuryTheater.json",
+        "deep-scan/master_shop_links_radio_format.json"
+    ];
+
+    // Master chronological system cache boundaries
+    let masterMemoryCachePool = null;
+    let activeTimelineQueue = [];
+    let currentQueueIndex = 0;
+
+    // 📡 PARALLEL DATA LOADER CORE: Fetches and patches indices inside RAM simultaneously
+    async function loadMasterTimelineCache() {
+        const titleNode = document.getElementById("telemetry-main-title");
+        titleNode.innerHTML = "⏱️ INITIALIZING SYSTEM DEEP-SCAN... LOADING CHUNKS, PLEASE STANDBY FOR SHORT WAIT...";
+        titleNode.style.color = "var(--caution-orange)";
+        
+        try {
+            const fetchPromises = DEEP_SCAN_REGISTRY.map(async (fileUrl) => {
+                try {
+                    const response = await fetch(fileUrl);
+                    if (!response.ok) return [];
+                    
+                    // 🛡️ THE IMMUNITY SHIELD: Read as raw text first to neutralize ghost control characters
+                    const rawTextData = await response.text();
+                    const sterileTextData = rawTextData.trim().replace(/^\ufeff/, "");
+                    const data = JSON.parse(sterileTextData);
+                    
+                    if (data && data.mp3s && Array.isArray(data.mp3s)) {
+                        return data.mp3s;
+                    } else if (Array.isArray(data)) {
+                        return data.map(item => item.unadulterated_source_url || "").filter(url => url !== "");
+                    }
+                    return [];
+                } catch (e) {
+                    console.error(`Error loading vault partition ${fileUrl}:`, e);
+                    return [];
+                }
+            });
+
+            const resultsArrays = await Promise.all(fetchPromises);
+            // Flatten all sub-arrays into one giant continuous 180,515 string array list
+            masterMemoryCachePool = resultsArrays.flat();
+            
+            titleNode.innerHTML = `🏆 TOTAL PLATFORM CAPACITY ACTIVE: ${masterMemoryCachePool.length.toLocaleString()} TIMELINE RECORES BUFFERED IN RAM.`;
+            titleNode.style.color = "var(--matrix-green)";
+            console.log(`📡 Time Machine Core Synchronized: Secured ${masterMemoryCachePool.length} link lines.`);
+        } catch (err) {
+            titleNode.innerHTML = "❌ Critical System Handshake Failure: Could not load repository indexes.";
+            titleNode.style.color = "red";
+            console.error(err);
+        }
+    }
+  // 🎲 FISHER-YATES ARCHITECTURAL SHUFFLE ENGINE: Randomizes array listings flawlessly in memory
+    function shuffleTimelineArray(targetArray) {
+        let m = targetArray.length, t, i;
+        while (m) {
+            i = Math.floor(Math.random() * m--);
+            t = targetArray[m];
+            targetArray[m] = targetArray[i];
+            targetArray[i] = t;
+        }
+        return targetArray;
+    }
+
+    // 🚀 CHRONOLOGICAL FILTER & ROTATIONAL JUKEBOX TRACK GENERATOR
+    async function tuneToTimelineYear(targetYear) {
+        const titleNode = document.getElementById("telemetry-main-title");
+        const line1 = document.getElementById("stat-line-1");
+        const resultsBox = document.getElementById("playlist-feed-box");
+        const audioPlayer = document.getElementById("timeline-audio-node");
+
+        // Lazy-load protection layer if files haven't hit memory buffers yet
+        if (!masterMemoryCachePool) {
+            await loadMasterTimelineCache();
+            if (!masterMemoryCachePool) return;
+        }
+
+        // Toggle active UI button glow states
+        document.querySelectorAll('.era-fader-btn').forEach(btn => btn.classList.remove('active-transmission'));
+        const activeBtn = document.getElementById(`btn-${targetYear}`);
+        if (activeBtn) activeBtn.classList.add('active-transmission');
+
+        titleNode.innerHTML = `🔍 COMBLING REPOSITORY CHUNKS FOR ERA MATRIX: [ ${targetYear} ]...`;
+        titleNode.style.color = "var(--caution-orange)";
+
+        // Space-blind sub-string timeline filtering pass (detects hidden date tokens inside raw URLs)
+        activeTimelineQueue = masterMemoryCachePool.filter(url => {
+            const decodedPath = decodeURIComponent(url).toLowerCase().replace(/[\s\-_]/g, '');
+            return decodedPath.includes(targetYear);
+        });
+
+        if (activeTimelineQueue.length === 0) {
+            titleNode.innerHTML = `⚠️ NO TRACE FOUND FOR TIMELINE MATRIX YEAR: ${targetYear}`;
+            line1.innerHTML = "QUEUE CAPACITY: 0 TRACKS ACTIVE";
+            resultsBox.innerHTML = "<div style='color: var(--caution-orange);'>// Zero tracking nodes located matching that timeline profile.</div>";
+            return;
+        }
+
+        // Randomize the queue order using our high-speed memory shuffler loop
+        activeTimelineQueue = shuffleTimelineArray(activeTimelineQueue);
+        currentQueueIndex = 0;
+
+        line1.innerHTML = `QUEUE CAPACITY: ${activeTimelineQueue.length.toLocaleString()} HISTORICAL CORES RANDOMIZED & BUFFERED`;
+        
+        // Render upcoming playlist visual items to screen display container layout faders
+        renderUpcomingTimelinePlaylist();
+
+        // Automatically fire up transmission line track 1 immediately on tune pass
+        engageTimelineTransmissionChannel();
+
+        // 🔊 THE ONENDED LOOP SHIELD: Seamlessly hooks into the audio node to auto-play next tracks
+        audioPlayer.onended = function() {
+            console.log("📡 Current audio block stream cycle finished. Advancing timeline node tracker...");
+            currentQueueIndex++;
+            
+            if (currentQueueIndex < activeTimelineQueue.length) {
+                engageTimelineTransmissionChannel();
+                renderUpcomingTimelinePlaylist();
+            } else {
+                titleNode.innerHTML = `🏁 ARCHIVAL CHRONOLOGICAL TRANSMISSION COMPLETED FOR PROFILE: ${targetYear}`;
+                document.getElementById("stat-line-2").innerHTML = "NOW MONITORING: STATION INTERLEAVED ISLE STATIC DEAD SPACE";
+            }
+        };
+    }
+
+    // 📡 DYNAMIC JUKEBOX STREAM ROUTER: Feeds raw link tokens straight into the browser audio card component
+    function engageTimelineTransmissionChannel() {
+        const titleNode = document.getElementById("telemetry-main-title");
+        const line2 = document.getElementById("stat-line-2");
+        const line3 = document.getElementById("stat-line-3");
+        const audioPlayer = document.getElementById("timeline-audio-node");
+
+        const targetTrackUrl = activeTimelineQueue[currentQueueIndex];
+        
+        // Extract pristine track metadata headings dynamically from raw URL filenames
+        const filenameWithExt = targetTrackUrl.split('/').pop();
+        let displayHeading = filenameWithExt.replace('.mp3', '').replace(/[-_]/g, ' ').replace(/\s+/g, ' ').trim().toUpperCase();
+        displayHeading = displayHeading.replace(/([A-Z])(\d)/g, '$1 $2').replace(/(\d)([A-Z])/g, '$1 $2');
+
+        titleNode.innerHTML = `📡 TIMELINE BROADCAST ENGAGED // YEAR LOCK PROIFLE RUNNING`;
+        titleNode.style.color = "var(--matrix-green)";
+        line2.innerHTML = `NOW MONITORING: ${displayHeading} (ARCHIVE)`;
+
+        // Identify lookahead upcoming target item block parameters
+        if (currentQueueIndex + 1 < activeTimelineQueue.length) {
+            const nextTrackUrl = activeTimelineQueue[currentQueueIndex + 1];
+            const nextFilename = nextTrackUrl.split('/').pop().replace('.mp3', '').replace(/[-_]/g, ' ').trim().toUpperCase();
+            line3.innerHTML = `NEXT ARRIVAL BUFFER: [ ${nextFilename.substring(0, 75)}... ]`;
+        } else {
+            line3.innerHTML = "NEXT ARRIVAL BUFFER: [ FINAL CODES REACHED // QUEUE TAIL END ]";
+        }
+
+        // Pump raw unadulterated Internet Archive URL stream directly onto website HTML media player
+        audioPlayer.src = targetTrackUrl;
+        audioPlayer.load();
+        audioPlayer.play().catch(err => {
+            console.log("Autoplay block active. Awaiting manual console activation tap.", err);
+        });
+    }
+
+    // 🎨 PLAYLIST FEED COMPONENT GRAPHICS GENERATOR
+    function renderUpcomingTimelinePlaylist() {
+        const resultsBox = document.getElementById("playlist-feed-box");
+        let htmlBuffer = "<div style='color: var(--dim-green); margin-bottom: 8px;'>// UPCOMING RANDOMIZED TRACK TRANSMISSION RUNTIME TIMELINE QUEUE:</div>";
+
+        // Display lookahead up to the next 15 upcoming shuffled music tracks inside tracking matrix box
+        const maxDisplayWindow = Math.min(currentQueueIndex + 15, activeTimelineQueue.length);
+        
+        for (let i = currentQueueIndex; i < maxDisplayWindow; i++) {
+            const trackUrl = activeTimelineQueue[i];
+            const filename = trackUrl.split('/').pop().replace('.mp3', '').replace(/[-_]/g, ' ').trim().toUpperCase();
+            const isActiveClass = (i === currentQueueIndex) ? "feed-item playing-now" : "feed-item";
+            const prefixMarker = (i === currentQueueIndex) ? "📡 LIVE NOW ──► " : `[Q-NODE ${i + 1}] `;
+
+            htmlBuffer += `<div class="${isActiveClass}">${prefixMarker}${filename}</div>`;
+        }
+
+        resultsBox.innerHTML = htmlBuffer;
+    }
+    // Initialize the background memory dump immediately when the page drops onto the client screen
+    window.addEventListener('DOMContentLoaded', loadMasterTimelineCache);
+	  
+
+</script>
+
+</body>
+</html>
